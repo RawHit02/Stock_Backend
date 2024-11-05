@@ -1,8 +1,32 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { SwaggerModule } from '@nestjs/swagger';
+import { LoggingInterceptor } from './common/interceptor/logging.interceptor';
+import { TransformInterceptor } from './common/interceptor/transform.interceptor';
+import { HttpExceptionFilter } from './shared-lib';
+import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { createDocument } from './common/swagger/swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 3000);
+  const app = await NestFactory.create(AppModule, { cors: true });
+
+  //getting current env keys
+  const appConfig = app.get(ConfigService);
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+    }),
+  );
+  app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalInterceptors(
+    new LoggingInterceptor(),
+    new TransformInterceptor(),
+  );
+
+  app.setGlobalPrefix('api/v1');
+  SwaggerModule.setup('api', app, createDocument(app));
+  await app.listen(process?.env?.PORT || 81);
+  console.log(`🚀 Server started at ${await app.getUrl()}`);
 }
 bootstrap();
