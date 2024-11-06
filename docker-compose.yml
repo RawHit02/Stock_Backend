@@ -1,0 +1,43 @@
+version: '3.7'
+networks:
+  stock_network:
+    # name: tour_o_travel_network
+    name: stock_network
+    driver: bridge
+    ipam:
+        driver: default
+        config:
+            - subnet: 182.16.241.0/24
+              gateway: 182.16.241.1
+services:
+  postgres:
+    image: postgres:13
+    container_name: stock_postgres_db
+    networks:
+      stock_network:
+        ipv4_address: 182.16.241.5
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: stock-dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+  pg-admin:
+    image: dpage/pgadmin4:8.6
+    container_name: stock_pgadmin
+    networks:
+      stock_network:
+        ipv4_address: 182.16.241.4
+    ports:
+      - '8081:80'
+    environment:
+      PGADMIN_DEFAULT_EMAIL: email@server.com
+      PGADMIN_DEFAULT_PASSWORD: Server@123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:
