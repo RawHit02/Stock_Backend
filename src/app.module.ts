@@ -10,6 +10,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostgresConfigModule } from './common/configuration/db/config.module';
 import { TypeOrmPostgresConnectionService } from './common/configuration/db/config.service';
 import { ApplicationModule } from './application/application.module';
+import { AutomapperModule } from '@automapper/nestjs';
+import { classes } from '@automapper/classes';
 
 @Module({
   imports: [
@@ -29,7 +31,9 @@ import { ApplicationModule } from './application/application.module';
       useClass: TypeOrmPostgresConnectionService,
       inject: [TypeOrmPostgresConnectionService],
     }),
-
+    AutomapperModule.forRoot({
+      strategyInitializer: classes(),
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env', '.dev.env'],
