@@ -8,7 +8,7 @@ import { GetAllVendorRequest } from 'src/models/vendor-management/get_all_vendor
 import { VendorListResponse } from 'src/models/vendor-management/vendor_list.response';
 import { EntityManager } from 'typeorm';
 import { ResultResponse } from 'src/models/base/result_response';
-import { PageDto } from 'src/models/base/dtos';
+import { PageDto, PageMetaDto } from 'src/models/base/dtos';
 import { CreateVendorRequest } from 'src/models/vendor-management/create_vendor.request';
 import { VendorManagementEntity } from 'src/infrastructure/data-access/entities';
 import { IVendorManagementRepository } from 'src/application/interfaces/vendor-management/ivendor_management.repository';
@@ -31,7 +31,7 @@ export class VendorManagementService implements IVendorManagementService {
         VendorManagementEntity,
       );
       // entity.id = uuidv4();
-      entity.createdBy = 'admin'
+      entity.createdBy = 'admin';
       await this.repository.save(entity);
       return entity.id;
     } catch (error) {
@@ -40,9 +40,36 @@ export class VendorManagementService implements IVendorManagementService {
       );
     }
   }
-  getVendor(
+
+  public async getVendor(
     pageOptionsDto: GetAllVendorRequest,
   ): Promise<ResultResponse<PageDto<VendorListResponse>>> {
-    throw new Error('Method not implemented.');
+    try {
+      const [vendors, count] = await this.repository.findAndCount({
+        where: {
+          isDeleted: false,
+        },
+        loadEagerRelations: true,
+        skip: pageOptionsDto.skip,
+        take: pageOptionsDto.take,
+      });
+
+      const pageMetaDto = new PageMetaDto({
+        itemCount: count,
+        pageOptionsDto: pageOptionsDto,
+      });
+
+      let res = this.mapper.mapArray(
+        vendors,
+        VendorManagementEntity,
+        VendorListResponse,
+      );
+
+      const pageDtoRes = new PageDto<VendorListResponse>(res, pageMetaDto);
+
+      return ResultResponse.ok(pageDtoRes, 'Fetched payout successfully');
+    } catch (error) {
+      throw ExceptionHelper.BadRequest(error.message);
+    }
   }
 }

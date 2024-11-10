@@ -8,16 +8,8 @@ export class VendorListResponse {
   id: string;
 
   @AutoMap()
-  @ApiProperty({ default: '1' })
-  amount: string;
-
-  @AutoMap()
-  @ApiProperty({ default: '' })
-  vehicleId: string;
-
-  @AutoMap()
-  @ApiProperty({ default: '' })
-  userId: string;
+  @ApiProperty()
+  name: string;
 
   @AutoMap()
   @ApiProperty({ default: '' })
