@@ -10,15 +10,18 @@ import { EntityManager } from 'typeorm';
 import { ResultResponse } from 'src/models/base/result_response';
 import { PageDto } from 'src/models/base/dtos';
 import { CreateVendorRequest } from 'src/models/vendor-management/create_vendor.request';
+import { VendorManagementEntity } from 'src/infrastructure/data-access/entities';
+import { IVendorManagementRepository } from 'src/application/interfaces/vendor-management/ivendor_management.repository';
 
 @Injectable()
 export class VendorManagementService implements IVendorManagementService {
   constructor(
-    // @InjectRepository(PayoutEntity)
-    // private readonly repository: IPayoutRepository,
+    @InjectRepository(VendorManagementEntity)
+    private readonly repository: IVendorManagementRepository,
     @InjectMapper() private mapper: Mapper,
     @InjectEntityManager() private _entityManager: EntityManager,
   ) {}
+  
   createVendor(
     request: CreateVendorRequest,
     changedBy: string,
