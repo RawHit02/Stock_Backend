@@ -7,7 +7,6 @@ import { VendorListResponse } from 'src/models/vendor-management/vendor_list.res
 export interface IVendorManagementService {
   createVendor(
     request: CreateVendorRequest,
-    changedBy: string,
   ): Promise<string>;
   getVendor(
     pageOptionsDto: GetAllVendorRequest,

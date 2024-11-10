@@ -12,6 +12,7 @@ import { PageDto } from 'src/models/base/dtos';
 import { CreateVendorRequest } from 'src/models/vendor-management/create_vendor.request';
 import { VendorManagementEntity } from 'src/infrastructure/data-access/entities';
 import { IVendorManagementRepository } from 'src/application/interfaces/vendor-management/ivendor_management.repository';
+import { ExceptionHelper } from 'src/application/helpers/exception.helper';
 
 @Injectable()
 export class VendorManagementService implements IVendorManagementService {
@@ -21,12 +22,23 @@ export class VendorManagementService implements IVendorManagementService {
     @InjectMapper() private mapper: Mapper,
     @InjectEntityManager() private _entityManager: EntityManager,
   ) {}
-  
-  createVendor(
-    request: CreateVendorRequest,
-    changedBy: string,
-  ): Promise<string> {
-    throw new Error('Method not implemented.');
+
+  public async createVendor(request: CreateVendorRequest): Promise<string> {
+    try {
+      const entity = this.mapper.map(
+        request,
+        CreateVendorRequest,
+        VendorManagementEntity,
+      );
+      // entity.id = uuidv4();
+      entity.createdBy = 'admin'
+      await this.repository.save(entity);
+      return entity.id;
+    } catch (error) {
+      throw ExceptionHelper.BadRequest(
+        error?.message || 'Something went wrong',
+      );
+    }
   }
   getVendor(
     pageOptionsDto: GetAllVendorRequest,

@@ -13,10 +13,7 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JWTService } from 'src/infrastructure/services/helpers';
-import { RoleGuard } from 'src/common/guard/role-guard';
 import { UserDetailsHelper } from '../helpers/user_details_map.helper';
-import { PageOptionsDto } from 'src/models/base/dtos';
-import { RoleConstants } from 'src/models/constants/role.constants';
 import { GetAllVendorRequest } from 'src/models/vendor-management/get_all_vendor_request';
 import { IVendorManagementService } from '../interfaces/vendor-management/ivendor_management.service';
 import { CreateVendorRequest } from 'src/models/vendor-management/create_vendor.request';
@@ -40,8 +37,8 @@ export class VendorManagementController {
       'With this admin can create a buyer or supplier for vendor in our system',
   })
   createPayout(@Body() request: CreateVendorRequest, @Req() req: Request) {
-    const user = UserDetailsHelper.userDetails(req, this.jwtService);
-    return this.vendorService.createVendor(request, user.username);
+    // const user = UserDetailsHelper.userDetails(req, this.jwtService);
+    return this.vendorService.createVendor(request);
   }
 
   @Get('getPayout')

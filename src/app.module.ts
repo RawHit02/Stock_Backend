@@ -12,6 +12,7 @@ import { TypeOrmPostgresConnectionService } from './common/configuration/db/conf
 import { ApplicationModule } from './application/application.module';
 import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
+import { AutoMapperProfileMapper } from './infrastructure/mappers/automapper_profile.mapper';
 
 @Module({
   imports: [
@@ -41,8 +42,8 @@ import { classes } from '@automapper/classes';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, JWTService],
-  exports: [JwtModule, JWTService],
+  providers: [AppService, JWTService, AutoMapperProfileMapper],
+  exports: [JwtModule, JWTService, AutoMapperProfileMapper],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
