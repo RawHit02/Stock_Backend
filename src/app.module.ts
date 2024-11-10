@@ -9,6 +9,10 @@ import { JWTService } from './infrastructure/services/helpers';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostgresConfigModule } from './common/configuration/db/config.module';
 import { TypeOrmPostgresConnectionService } from './common/configuration/db/config.service';
+import { ApplicationModule } from './application/application.module';
+import { AutomapperModule } from '@automapper/nestjs';
+import { classes } from '@automapper/classes';
+import { AutoMapperProfileMapper } from './infrastructure/mappers/automapper_profile.mapper';
 
 @Module({
   imports: [
@@ -22,12 +26,15 @@ import { TypeOrmPostgresConnectionService } from './common/configuration/db/conf
       },
     }),
 
+    ApplicationModule,
     TypeOrmModule.forRootAsync({
       imports: [PostgresConfigModule],
       useClass: TypeOrmPostgresConnectionService,
       inject: [TypeOrmPostgresConnectionService],
     }),
-
+    AutomapperModule.forRoot({
+      strategyInitializer: classes(),
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env', '.dev.env'],
@@ -35,8 +42,8 @@ import { TypeOrmPostgresConnectionService } from './common/configuration/db/conf
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, JWTService],
-  exports: [JwtModule, JWTService],
+  providers: [AppService, JWTService, AutoMapperProfileMapper],
+  exports: [JwtModule, JWTService, AutoMapperProfileMapper],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
