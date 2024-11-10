@@ -4,12 +4,12 @@ import { InjectMapper } from '@automapper/nestjs';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import { Inject, Injectable } from '@nestjs/common';
 import { IVendorManagementService } from 'src/application/interfaces/vendor-management/ivendor_management.service';
-import { CreatePayoutRequest } from 'src/models/vendor-management/create_payout.request';
-import { GetAllPayoutRequest } from 'src/models/vendor-management/get_all_payout_request';
-import { PayoutListResponse } from 'src/models/vendor-management/payout_list.response';
+import { GetAllVendorRequest } from 'src/models/vendor-management/get_all_vendor_request';
+import { VendorListResponse } from 'src/models/vendor-management/vendor_list.response';
 import { EntityManager } from 'typeorm';
 import { ResultResponse } from 'src/models/base/result_response';
 import { PageDto } from 'src/models/base/dtos';
+import { CreateVendorRequest } from 'src/models/vendor-management/create_vendor.request';
 
 @Injectable()
 export class VendorManagementService implements IVendorManagementService {
@@ -20,14 +20,14 @@ export class VendorManagementService implements IVendorManagementService {
     @InjectEntityManager() private _entityManager: EntityManager,
   ) {}
   createVendor(
-    request: CreatePayoutRequest,
+    request: CreateVendorRequest,
     changedBy: string,
   ): Promise<string> {
     throw new Error('Method not implemented.');
   }
   getVendor(
-    pageOptionsDto: GetAllPayoutRequest,
-  ): Promise<ResultResponse<PageDto<PayoutListResponse>>> {
+    pageOptionsDto: GetAllVendorRequest,
+  ): Promise<ResultResponse<PageDto<VendorListResponse>>> {
     throw new Error('Method not implemented.');
   }
 }

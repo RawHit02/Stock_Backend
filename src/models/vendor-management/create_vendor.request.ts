@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsDecimal, IsInt, IsNumber, Min } from 'class-validator';
 
-export class CreatePayoutRequest {
+export class CreateVendorRequest {
   @AutoMap()
   @ApiProperty({ default: '1' })
   @Type(() => Number)
