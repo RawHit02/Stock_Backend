@@ -9,6 +9,7 @@ import { JWTService } from './infrastructure/services/helpers';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostgresConfigModule } from './common/configuration/db/config.module';
 import { TypeOrmPostgresConnectionService } from './common/configuration/db/config.service';
+import { ApplicationModule } from './application/application.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { TypeOrmPostgresConnectionService } from './common/configuration/db/conf
       },
     }),
 
+    ApplicationModule,
     TypeOrmModule.forRootAsync({
       imports: [PostgresConfigModule],
       useClass: TypeOrmPostgresConnectionService,
