@@ -11,6 +11,8 @@ import { Injectable } from '@nestjs/common';
 import { CreateVendorRequest } from 'src/models/vendor-management/create_vendor.request';
 import { VendorManagementEntity } from '../data-access/entities';
 import { VendorListResponse } from 'src/models/vendor-management/vendor_list.response';
+import { VendorResponse } from 'src/models/base/vendor_response';
+import { UpdateVendorRequest } from 'src/models/vendor-management/update_vendor.request';
 
 @Injectable()
 export class AutoMapperProfileMapper extends AutomapperProfile {
@@ -22,6 +24,8 @@ export class AutoMapperProfileMapper extends AutomapperProfile {
     return (mapper) => {
       createMap(mapper, CreateVendorRequest, VendorManagementEntity);
       createMap(mapper, VendorManagementEntity, VendorListResponse);
+      createMap(mapper, VendorManagementEntity, VendorResponse);
+      createMap(mapper, UpdateVendorRequest, VendorManagementEntity);
     };
   }
 }

@@ -20,4 +20,20 @@ export class VendorManagementEntity extends EntityBase {
     type: 'character varying',
   })
   name: string;
+
+  @AutoMap()
+  @Column({
+    name: 'IsDeleted',
+    type: 'boolean',
+    default: false,
+  })
+  isDeleted: boolean;
+
+  @AutoMap()
+  @Column({
+    name: 'UpdatedBy',
+    type: 'character varying',
+    nullable: true,
+  })
+  updatedBy?: string;
 }

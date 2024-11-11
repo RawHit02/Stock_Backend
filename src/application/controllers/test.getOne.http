@@ -1,0 +1,6 @@
+GET http://localhost:8001/api/v1/vendorManagement/getVendorById
+Content-Type: application/json
+
+{
+    "vendorId":"e7f7b6c7-1dba-4704-836a-c5cd07b6025e"
+}
