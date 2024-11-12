@@ -1,7 +1,0 @@
-PATCH http://localhost:8001/api/v1/vendorManagement/updateVendor
-Content-Type: application/json
-
-{
-    "vendorId": "18d018ba-bc81-4586-91c3-fe5dfc74a5be",
-    "name": "updated name"
-}
