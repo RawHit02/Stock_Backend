@@ -40,6 +40,9 @@ export class VendorManagementService implements IVendorManagementService {
       await this.repository.save(entity);
       return entity.id;
     } catch (error) {
+      if (error.code === '23505' && error.detail.includes('Email')) { // '23505' is the PostgreSQL error code for unique violations
+        throw ExceptionHelper.BadRequest('Email already exists, please use a different one.');
+      }
       throw ExceptionHelper.BadRequest(
         error?.message || 'Something went wrong',
       );
@@ -148,12 +151,8 @@ export class VendorManagementService implements IVendorManagementService {
       // Cleaning the request object to remove any undefined fields
       const cleanedRequest = cleanObject(request);
 
-      // Map the cleaned request object onto the vendor entity
-      this.mapper.map(
-        cleanedRequest,
-        UpdateVendorRequest,
-        VendorManagementEntity,
-      );
+      // Use Object.assign to update the vendor with cleanedRequest fields
+    Object.assign(vendor, cleanedRequest);
 
       vendor.updatedBy = 'admin'; // Use actual user details here if needed
       vendor.updatedDate = new Date();

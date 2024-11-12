@@ -26,7 +26,7 @@ export class VendorManagementEntity extends EntityBase {
     name: 'ContactNumber',
     type: 'character varying',
     length: 15,
-    default: 'N/A', // Default value instead of nullable
+    nullable: false,
   })
   contactNumber: string;
 
@@ -35,7 +35,7 @@ export class VendorManagementEntity extends EntityBase {
     name: 'WhatsappNumber',
     type: 'character varying',
     length: 15,
-    default: 'N/A', 
+    nullable: false,
   })
   whatsappNumber: string;
 
@@ -45,7 +45,7 @@ export class VendorManagementEntity extends EntityBase {
     type: 'character varying',
     length: 150,
     unique: true,
-    default: 'noemail@example.com', 
+    nullable: false,
   })
   email: string;
 
@@ -53,7 +53,7 @@ export class VendorManagementEntity extends EntityBase {
   @Column({
     name: 'Address',
     type: 'text',
-    default: 'Unknown', 
+    nullable: false,
   })
   address: string;
 

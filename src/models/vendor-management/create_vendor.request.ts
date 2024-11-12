@@ -1,7 +1,7 @@
 import { AutoMap } from '@automapper/classes';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsDecimal, IsInt, IsNumber, Min } from 'class-validator';
+import { IsDecimal, IsEmail, IsInt, IsNumber, Length, Matches, Min } from 'class-validator';
 
 export class CreateVendorRequest {
   // @AutoMap()
@@ -25,4 +25,45 @@ export class CreateVendorRequest {
     description: 'Enter valid name',
   })
   name: string;
+
+  @AutoMap()
+  @Type(() => String)
+  @ApiProperty({
+    default: '+911234567890',
+    description: 'Enter contact number with country code',
+  })
+  @Matches(/^\+[1-9]\d{0,2} ?\d{5,12}$/, {
+    message: 'Contact number must be in international format, e.g., +91 1234567890',
+  })
+  @Length(10, 20)
+  contactNumber: string;
+
+  @AutoMap()
+  @Type(() => String)
+  @ApiProperty({
+    default: '+911234567890',
+    description: 'Enter WhatsApp number with country code',
+  })
+  @Matches(/^\+[1-9]\d{0,2} ?\d{5,12}$/, {
+    message: 'WhatsApp number must be in international format, e.g., +91 1234567890',
+  })
+  @Length(10, 20)
+  whatsappNumber: string;
+
+  @AutoMap()
+  @Type(() => String)
+  @ApiProperty({
+    default: 'vendor@example.com',
+    description: 'Enter valid email address',
+  })
+  @IsEmail()
+  email: string;
+
+  @AutoMap()
+  @Type(() => String)
+  @ApiProperty({
+    default: '123 Main St, Anytown, AN',
+    description: 'Enter valid address',
+  })
+  address: string;
 }

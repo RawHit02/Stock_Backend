@@ -12,6 +12,22 @@ export class VendorListResponse {
   name: string;
 
   @AutoMap()
+  @ApiProperty()
+  contactNumber: string;
+
+  @AutoMap()
+  @ApiProperty()
+  whatsappNumber: string;
+
+  @AutoMap()
+  @ApiProperty()
+  email: string;
+
+  @AutoMap()
+  @ApiProperty()
+  address: string;
+
+  @AutoMap()
   @ApiProperty({ default: '' })
   createdBy?: string;
 

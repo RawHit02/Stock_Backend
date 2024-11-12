@@ -14,6 +14,30 @@ export class VendorResponse {
 
   @AutoMap()
   @ApiProperty({
+    description: 'Vendor email address',
+  })
+  email: string;
+
+  @AutoMap()
+  @ApiProperty({
+    description: 'Vendor contact number',
+  })
+  contactNumber: string;
+
+  @AutoMap()
+  @ApiProperty({
+    description: 'Vendor WhatsApp number',
+  })
+  whatsappNumber: string;
+
+  @AutoMap()
+  @ApiProperty({
+    description: 'Vendor address',
+  })
+  address: string;
+
+  @AutoMap()
+  @ApiProperty({
     description: 'The user who created this vendor',
   })
   createdBy: string;
