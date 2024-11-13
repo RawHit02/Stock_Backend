@@ -10,7 +10,6 @@ export class UpdateVendorRequest {
     default: 'e7f7b6c7-1dba-4704-836a-c5cd07b6025e',
     description: 'Vendor ID',
   })
-  @IsString()
   vendorId: string;
 
   @AutoMap()
@@ -19,8 +18,6 @@ export class UpdateVendorRequest {
     default: 'Updated Vendor Name',
     description: 'Updated vendor name',
   })
-  @IsString()
-  @IsOptional()
   name?: string;
 
   @AutoMap()
@@ -29,8 +26,6 @@ export class UpdateVendorRequest {
     example: '+1234567890',
     description: 'Updated vendor contact number',
   })
-  @IsString()
-  @IsOptional()
   @Matches(/^\+?[1-9]\d{1,14}$/, {
     message: 'Contact number must be a valid international format',
   })
@@ -42,10 +37,9 @@ export class UpdateVendorRequest {
     example: '+1234567890',
     description: 'Updated vendor WhatsApp number',
   })
-  @IsString()
-  @IsOptional()
   @Matches(/^\+?[1-9]\d{1,14}$/, {
-    message: 'WhatsApp number must be a valid international format eg: +91 1234567890',
+    message:
+      'WhatsApp number must be a valid international format eg: +91 1234567890',
   })
   whatsappNumber?: string;
 
@@ -56,7 +50,6 @@ export class UpdateVendorRequest {
     description: 'Updated vendor email',
   })
   @IsEmail()
-  @IsOptional()
   email?: string;
 
   @AutoMap()
@@ -65,7 +58,5 @@ export class UpdateVendorRequest {
     example: '123 Vendor Street',
     description: 'Updated vendor address',
   })
-  @IsString()
-  @IsOptional()
   address?: string;
 }

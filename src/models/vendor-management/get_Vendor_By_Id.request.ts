@@ -11,6 +11,5 @@ export class GetVendorByIdRequest {
     example: '53b86133-3b0b-480b-882a-a4318638db1e',
   })
   @Type(() => String)
-  @IsString()
   readonly vendorId: string;
 }

@@ -7,6 +7,5 @@ import { PageOptionsDto } from '../base/dtos';
 export class GetAllVendorRequest extends PageOptionsDto {
   @ApiPropertyOptional()
   @Type(() => String)
-  @IsOptional()
   readonly userId?: String;
 }

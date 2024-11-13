@@ -1,7 +1,15 @@
 import { AutoMap } from '@automapper/classes';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsDecimal, IsEmail, IsInt, IsNumber, Length, Matches, Min } from 'class-validator';
+import {
+  IsDecimal,
+  IsEmail,
+  IsInt,
+  IsNumber,
+  Length,
+  Matches,
+  Min,
+} from 'class-validator';
 
 export class CreateVendorRequest {
   // @AutoMap()
@@ -33,7 +41,8 @@ export class CreateVendorRequest {
     description: 'Enter contact number with country code',
   })
   @Matches(/^\+[1-9]\d{0,2} ?\d{5,12}$/, {
-    message: 'Contact number must be in international format, e.g., +91 1234567890',
+    message:
+      'Contact number must be in international format, e.g., +91 1234567890',
   })
   @Length(10, 20)
   contactNumber: string;
@@ -45,7 +54,8 @@ export class CreateVendorRequest {
     description: 'Enter WhatsApp number with country code',
   })
   @Matches(/^\+[1-9]\d{0,2} ?\d{5,12}$/, {
-    message: 'WhatsApp number must be in international format, e.g., +91 1234567890',
+    message:
+      'WhatsApp number must be in international format, e.g., +91 1234567890',
   })
   @Length(10, 20)
   whatsappNumber: string;

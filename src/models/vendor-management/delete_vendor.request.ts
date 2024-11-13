@@ -10,7 +10,5 @@ export class DeleteVendorRequest {
     example: 'admin-user-123',
   })
   @Type(() => String)
-  @IsOptional()
-  @IsString()
   deletedBy?: string;
 }
