@@ -4,12 +4,14 @@ import { Type } from 'class-transformer';
 import {
   IsDecimal,
   IsEmail,
+  IsEnum,
   IsInt,
   IsNumber,
   Length,
   Matches,
   Min,
 } from 'class-validator';
+import { VendorType } from 'src/shared-lib';
 
 export class CreateVendorRequest {
   // @AutoMap()
@@ -25,6 +27,14 @@ export class CreateVendorRequest {
   //   description: 'Vehicle id comes from vehicle Table',
   // })
   // vehicleId: string;
+
+  @AutoMap()
+  @ApiProperty({ 
+    enum: VendorType, 
+    description: 'Specify if the vendor is a Buyer or Supplier' })
+  @IsEnum(VendorType, { 
+    message: 'vendorType must be either Buyer or Supplier' })
+    vendorType: VendorType;
 
   @AutoMap()
   @Type(() => String)

@@ -17,11 +17,11 @@ async function bootstrap() {
     new ValidationPipe({
       transform: true,
 
-    //   disableErrorMessages: false, // Enables detailed error messages
-    // exceptionFactory: (errors) => {
-    //   console.error(errors); // Log validation errors
-    //   return new BadRequestException(errors);
-    // },
+      disableErrorMessages: false, // Enables detailed error messages
+    exceptionFactory: (errors) => {
+      console.error(errors); // Log validation errors
+      return new BadRequestException(errors);
+    },
 
 
     }),

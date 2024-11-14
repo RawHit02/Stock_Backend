@@ -1,6 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { EntityBase } from '../base/entity-base.entity';
 import { AutoMap } from '@automapper/classes';
+import { VendorType } from 'src/shared-lib';
 
 @Entity({ name: 'VendorManagementTbl' })
 export class VendorManagementEntity extends EntityBase {
@@ -13,6 +14,14 @@ export class VendorManagementEntity extends EntityBase {
   //   default: 0.0,
   // })
   // amount: number;
+
+  @AutoMap()
+  @Column({
+    type: 'enum',
+    enum: VendorType,
+    nullable: false,  
+  })
+  vendorType: VendorType;
 
   @AutoMap()
   @Column({

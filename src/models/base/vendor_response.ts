@@ -1,10 +1,17 @@
 import { AutoMap } from '@automapper/classes';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsEnum } from 'class-validator';
+import { VendorType } from 'src/shared-lib';
 
 export class VendorResponse {
   @AutoMap()
   @ApiProperty()
   id: string;
+
+  @AutoMap()
+  @ApiProperty({ description: 'Type of the vendor Buyer/Supplier',} )
+  @IsEnum(VendorType)
+    vendorType: VendorType;
 
   @AutoMap()
   @ApiProperty({

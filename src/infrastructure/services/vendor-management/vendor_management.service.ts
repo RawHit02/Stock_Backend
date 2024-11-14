@@ -13,7 +13,6 @@ import { CreateVendorRequest } from 'src/models/vendor-management/create_vendor.
 import { VendorManagementEntity } from 'src/infrastructure/data-access/entities';
 import { IVendorManagementRepository } from 'src/application/interfaces/vendor-management/ivendor_management.repository';
 import { ExceptionHelper } from 'src/application/helpers/exception.helper';
-import { DeleteVendorRequest } from 'src/models/vendor-management/delete_vendor.request';
 import { GetVendorByIdRequest } from 'src/models/vendor-management/get_Vendor_By_Id.request';
 import { VendorResponse } from 'src/models/base/vendor_response';
 import { UpdateVendorRequest } from 'src/models/vendor-management/update_vendor.request';
