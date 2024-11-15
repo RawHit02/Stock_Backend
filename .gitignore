@@ -57,3 +57,6 @@ package-lock.json
 
 #API test httpyac files
 *.http 
+
+#env file
+.env
