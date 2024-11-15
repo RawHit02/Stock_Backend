@@ -15,7 +15,7 @@ async function bootstrap() {
   const appConfig = app.get(ConfigService);
   app.useGlobalPipes(
     new ValidationPipe({
-      transform: true,
+      transform: true,whitelist: true,
 
       disableErrorMessages: false, // Enables detailed error messages
     exceptionFactory: (errors) => {
