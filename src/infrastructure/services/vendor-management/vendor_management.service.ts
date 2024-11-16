@@ -125,8 +125,6 @@ export class VendorManagementService implements IVendorManagementService {
       if (error instanceof NotFoundException) {
         throw error; // Re-throw specific exceptions
       }
-  
-      // Handle unexpected errors
       throw new InternalServerErrorException('An unexpected error occurred.');
     }
   }
