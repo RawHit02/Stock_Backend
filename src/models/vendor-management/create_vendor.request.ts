@@ -38,6 +38,7 @@ export class CreateVendorRequest {
 
   @AutoMap()
   @Type(() => String)
+  @IsNotEmpty({message: 'Name is required'})
   @ApiProperty({
     default: 'abc',
     description: 'Enter valid name',
@@ -81,6 +82,7 @@ export class CreateVendorRequest {
 
   @AutoMap()
   @Type(() => String)
+  @IsNotEmpty({message: 'Address is required'})
   @ApiProperty({
     default: '123 Main St, Anytown, AN',
     description: 'Enter valid address',
