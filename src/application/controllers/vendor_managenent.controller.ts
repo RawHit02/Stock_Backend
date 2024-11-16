@@ -21,7 +21,6 @@ import { GetAllVendorRequest } from 'src/models/vendor-management/get_all_vendor
 import { IVendorManagementService } from '../interfaces/vendor-management/ivendor_management.service';
 import { CreateVendorRequest } from 'src/models/vendor-management/create_vendor.request';
 import { DeleteVendorRequest } from 'src/models/vendor-management/delete_vendor.request';
-import { GetVendorByIdRequest } from 'src/models/vendor-management/get_Vendor_By_Id.request';
 import { UpdateVendorRequest } from 'src/models/vendor-management/update_vendor.request';
 
 @Controller('vendorManagement')
@@ -43,7 +42,6 @@ export class VendorManagementController {
       'With this admin can create a buyer or supplier for vendor in our system',
   })
   createPayout(@Body() request: CreateVendorRequest, @Req() req: Request) {
-    // const user = UserDetailsHelper.userDetails(req, this.jwtService);
     return this.vendorService.createVendor(request);
   }
 
@@ -70,28 +68,23 @@ export class VendorManagementController {
     @Param('vendorId') vendorId: string, // ID from the URL path
     @Body() deleteVendorRequest: DeleteVendorRequest, // Optional deletedBy from body
   ) {
-    console.log('Request Data:', {
-      vendorId,
-      deletedBy: deleteVendorRequest.deletedBy,
-    });
     return this.vendorService.deleteVendor(
       vendorId,
       deleteVendorRequest.deletedBy,
     );
   }
 
-  @Get('getVendorById')
+  @Get('getVendorById/:vendorId')
   @ApiBearerAuth('access-token')
   @ApiOperation({
     summary: 'Get Vendor By ID - SubAdmin, Admin',
     description: 'Allows admins to retrieve vendor details by ID.',
   })
   async getVendorById(
-    @Body() request: GetVendorByIdRequest,
+    @Param('vendorId') vendorId: string,
     @Req() req: Request,
   ) {
-    // const user = UserDetailsHelper.userDetails(req, this.jwtService);
-    return this.vendorService.getVendorById(request);
+    return this.vendorService.getVendorById(vendorId);
   }
 
   @Patch('updateVendor')
@@ -104,7 +97,6 @@ export class VendorManagementController {
     @Body() request: UpdateVendorRequest,
     @Req() req: Request,
   ) {
-    // const user = UserDetailsHelper.userDetails(req, this.jwtService);
     return this.vendorService.updateVendor(request);
   }
 }

@@ -2,7 +2,7 @@ import { Mapper } from '@automapper/core';
 import { v4 as uuidv4 } from 'uuid';
 import { InjectMapper } from '@automapper/nestjs';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { IVendorManagementService } from 'src/application/interfaces/vendor-management/ivendor_management.service';
 import { GetAllVendorRequest } from 'src/models/vendor-management/get_all_vendor_request';
 import { VendorListResponse } from 'src/models/vendor-management/vendor_list.response';
@@ -13,7 +13,6 @@ import { CreateVendorRequest } from 'src/models/vendor-management/create_vendor.
 import { VendorManagementEntity } from 'src/infrastructure/data-access/entities';
 import { IVendorManagementRepository } from 'src/application/interfaces/vendor-management/ivendor_management.repository';
 import { ExceptionHelper } from 'src/application/helpers/exception.helper';
-import { GetVendorByIdRequest } from 'src/models/vendor-management/get_Vendor_By_Id.request';
 import { VendorResponse } from 'src/models/base/vendor_response';
 import { UpdateVendorRequest } from 'src/models/vendor-management/update_vendor.request';
 import { cleanObject } from '../helpers/mapper_object';
@@ -109,29 +108,30 @@ export class VendorManagementService implements IVendorManagementService {
     }
   }
 
-  public async getVendorById(
-    getVendorByIdRequest: GetVendorByIdRequest,
-  ): Promise<VendorManagementEntity | null> {
+  async getVendorById(vendorId: string): Promise<VendorManagementEntity> {
     try {
-      const { vendorId } = getVendorByIdRequest; // Extract vendorId from the request object
-
       const vendor = await this.repository.findOne({
         where: { id: vendorId, isDeleted: false },
       });
-
+  
       if (!vendor) {
         throw new NotFoundException(
-          `Vendor with ID ${vendorId} not found or already deleted.`,
+          `Vendor with ID ${vendorId} not found or is already deleted.`,
         );
       }
-
-      return vendor;
+  
+      return vendor; // Return the full vendor entity
     } catch (error) {
-      throw new ExceptionHelper.BadRequest(
-        error?.message || 'Something went wrong',
-      );
+      if (error instanceof NotFoundException) {
+        throw error; // Re-throw specific exceptions
+      }
+  
+      // Handle unexpected errors
+      throw new InternalServerErrorException('An unexpected error occurred.');
     }
   }
+  
+  
 
   public async updateVendor(
     request: UpdateVendorRequest,

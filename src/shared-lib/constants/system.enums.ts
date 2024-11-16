@@ -38,3 +38,8 @@ export enum VendorType{
   Buyer = 'Buyer',
   Supplier = 'Supplier',
 }
+
+export enum stockType{
+  Inward="Inward",
+  Outward="Outward"
+}

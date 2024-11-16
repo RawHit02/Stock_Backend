@@ -13,6 +13,7 @@ import { VendorManagementEntity } from '../data-access/entities';
 import { VendorListResponse } from 'src/models/vendor-management/vendor_list.response';
 import { VendorResponse } from 'src/models/base/vendor_response';
 import { UpdateVendorRequest } from 'src/models/vendor-management/update_vendor.request';
+import { GetAllVendorRequest } from 'src/models/vendor-management/get_all_vendor_request';
 
 @Injectable()
 export class AutoMapperProfileMapper extends AutomapperProfile {

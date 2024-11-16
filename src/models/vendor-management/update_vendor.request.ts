@@ -1,12 +1,13 @@
 import { AutoMap } from '@automapper/classes';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsString, IsOptional, Matches, IsEmail, IsEnum } from 'class-validator';
+import { IsString, IsOptional, Matches, IsEmail, IsEnum, IsNotEmpty } from 'class-validator';
 import { VendorType } from 'src/shared-lib';
 
 export class UpdateVendorRequest {
   @AutoMap()
   @Type(() => String)
+  @IsNotEmpty()
   @ApiProperty({
     default: 'e7f7b6c7-1dba-4704-836a-c5cd07b6025e',
     description: 'Vendor ID',
@@ -14,12 +15,14 @@ export class UpdateVendorRequest {
   vendorId: string;
 
   @AutoMap()
+  @IsOptional()
   @ApiProperty({ 
     description: 'Specify if the vendor is a Buyer or Supplier' })
     vendorType?: VendorType;
 
   @AutoMap()
   @Type(() => String)
+  @IsOptional()
   @ApiProperty({
     default: 'Updated Vendor Name',
     description: 'Updated vendor name',
@@ -53,6 +56,7 @@ export class UpdateVendorRequest {
 
   @AutoMap()
   @Type(() => String)
+  @IsOptional()
   @ApiProperty({
     example: 'vendor@example.com',
     description: 'Updated vendor email',
@@ -62,6 +66,7 @@ export class UpdateVendorRequest {
 
   @AutoMap()
   @Type(() => String)
+  @IsOptional()
   @ApiProperty({
     example: '123 Vendor Street',
     description: 'Updated vendor address',
