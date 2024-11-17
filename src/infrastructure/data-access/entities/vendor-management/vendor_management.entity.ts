@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { EntityBase } from '../base/entity-base.entity';
 import { AutoMap } from '@automapper/classes';
-import { VendorType } from 'src/shared-lib';
+import { VendorType } from 'src/infrastructure/helpers/vendor_type_helper';
 
 @Entity({ name: 'VendorManagementTbl' })
 export class VendorManagementEntity extends EntityBase {
@@ -17,9 +17,10 @@ export class VendorManagementEntity extends EntityBase {
 
   @AutoMap()
   @Column({
+    name: 'vendorType',
     type: 'enum',
     enum: VendorType,
-    nullable: false,  
+    default: VendorType.Buyer,
   })
   vendorType: VendorType;
 
@@ -81,6 +82,4 @@ export class VendorManagementEntity extends EntityBase {
     nullable: true,
   })
   updatedBy?: string;
-
-  
 }

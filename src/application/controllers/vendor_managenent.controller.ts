@@ -41,11 +41,11 @@ export class VendorManagementController {
     description:
       'With this admin can create a buyer or supplier for vendor in our system',
   })
-  createPayout(@Body() request: CreateVendorRequest, @Req() req: Request) {
+  createVendor(@Body() request: CreateVendorRequest, @Req() req: Request) {
     return this.vendorService.createVendor(request);
   }
 
-  @Get('getPayout')
+  @Get('getVendor')
   @ApiBearerAuth('access-token')
   // @UseGuards(RoleGuard)
   // @SetMetadata('role', [
@@ -53,18 +53,18 @@ export class VendorManagementController {
   //   RoleConstants.subAdmin,
   //   RoleConstants.vendor,
   // ])
-  getPayout(@Query() pageOptionsDto: GetAllVendorRequest, @Req() req: Request) {
+  getVendor(@Query() pageOptionsDto: GetAllVendorRequest, @Req() req: Request) {
     return this.vendorService.getVendor(pageOptionsDto);
   }
 
   //triggers deletion
-  @Delete('deletePayout/:vendorId')
+  @Delete('deleteVendor/:vendorId')
   @ApiBearerAuth('access-token')
   @ApiOperation({
     summary: 'Delete Vendor - Admin and SubAdmin',
     description: 'Marks a vendor as deleted by setting isDeleted to true',
   })
-  deletePayout(
+  deleteVendor(
     @Param('vendorId') vendorId: string, // ID from the URL path
     @Body() deleteVendorRequest: DeleteVendorRequest, // Optional deletedBy from body
   ) {
