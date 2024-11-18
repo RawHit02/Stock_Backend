@@ -12,7 +12,7 @@ import {
   Matches,
   Min,
 } from 'class-validator';
-import { VendorType } from 'src/shared-lib';
+import { VendorType } from 'src/infrastructure/helpers/vendor_type_helper';
 
 export class CreateVendorRequest {
   // @AutoMap()
@@ -30,16 +30,18 @@ export class CreateVendorRequest {
   // vehicleId: string;
 
   @AutoMap()
-  @ApiProperty({ 
-    enum: VendorType, 
-    description: 'Specify if the vendor is a Buyer or Supplier' })
-  @IsEnum(VendorType, { 
-    message: 'vendorType must be either Buyer or Supplier' })
-    vendorType: VendorType;
+  @ApiProperty({
+    enum: VendorType,
+    description: 'Specify if the vendor is a Buyer or Supplier',
+  })
+  @IsEnum(VendorType, {
+    message: 'vendorType must be either Buyer or Supplier',
+  })
+  vendorType: VendorType;
 
   @AutoMap()
   @Type(() => String)
-  @IsNotEmpty({message: 'Name is required'})
+  @IsNotEmpty({ message: 'Name is required' })
   @ApiProperty({
     default: 'abc',
     description: 'Enter valid name',
@@ -83,7 +85,7 @@ export class CreateVendorRequest {
 
   @AutoMap()
   @Type(() => String)
-  @IsNotEmpty({message: 'Address is required'})
+  @IsNotEmpty({ message: 'Address is required' })
   @ApiProperty({
     default: '123 Main St, Anytown, AN',
     description: 'Enter valid address',

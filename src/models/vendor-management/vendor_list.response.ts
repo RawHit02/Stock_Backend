@@ -1,8 +1,8 @@
 import { AutoMap } from '@automapper/classes';
 import { v4 as uuidv4 } from 'uuid';
 import { ApiProperty } from '@nestjs/swagger';
-import { VendorType } from 'src/shared-lib';
 import { IsEmail, IsEnum } from 'class-validator';
+import { VendorType } from 'src/infrastructure/helpers/vendor_type_helper';
 
 export class VendorListResponse {
   @AutoMap()
@@ -12,7 +12,7 @@ export class VendorListResponse {
   @AutoMap()
   @ApiProperty()
   @IsEnum(VendorType)
-    vendorType: VendorType;
+  vendorType: VendorType;
 
   @AutoMap()
   @ApiProperty()

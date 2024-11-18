@@ -1,8 +1,15 @@
 import { AutoMap } from '@automapper/classes';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsString, IsOptional, Matches, IsEmail, IsEnum, IsNotEmpty } from 'class-validator';
-import { VendorType } from 'src/shared-lib';
+import {
+  IsString,
+  IsOptional,
+  Matches,
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+} from 'class-validator';
+import { VendorType } from 'src/infrastructure/helpers/vendor_type_helper';
 
 export class UpdateVendorRequest {
   @AutoMap()
@@ -16,9 +23,10 @@ export class UpdateVendorRequest {
 
   @AutoMap()
   @IsOptional()
-  @ApiProperty({ 
-    description: 'Specify if the vendor is a Buyer or Supplier' })
-    vendorType?: VendorType;
+  @ApiProperty({
+    description: 'Specify if the vendor is a Buyer or Supplier',
+  })
+  vendorType?: VendorType;
 
   @AutoMap()
   @Type(() => String)

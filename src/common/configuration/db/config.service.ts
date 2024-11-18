@@ -24,7 +24,7 @@ export class TypeOrmPostgresConnectionService implements TypeOrmOptionsFactory {
       entities: ['dist/**/**/*.entity{.ts,.js}'],
 
       migrations: ['dist/migrations/*{.ts,.js}'],
-      migrationsTableName: 'tour_migrations',
+      migrationsTableName: 'stock_migrations',
       autoLoadEntities: false,
       synchronize: false,
       logging: true,
