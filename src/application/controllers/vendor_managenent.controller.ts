@@ -53,7 +53,7 @@ export class VendorManagementController {
   //   RoleConstants.subAdmin,
   //   RoleConstants.vendor,
   // ])
-  getVendor(@Query() pageOptionsDto: GetAllVendorRequest,@Req() req: Request) {
+  getVendor(@Query() pageOptionsDto: GetAllVendorRequest, @Req() req: Request) {
     return this.vendorService.getVendor(pageOptionsDto);
   }
 

@@ -2,7 +2,12 @@ import { Mapper } from '@automapper/core';
 import { v4 as uuidv4 } from 'uuid';
 import { InjectMapper } from '@automapper/nestjs';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
-import { Inject, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { EntityManager } from 'typeorm';
 import { ResultResponse } from 'src/models/base/result_response';
 import { PageDto, PageMetaDto } from 'src/models/base/dtos';
@@ -37,8 +42,11 @@ export class StockManagementService implements IStockManagementService {
       await this.repository.save(entity);
       return entity.id;
     } catch (error) {
-      if (error.code === '23505' && error.detail.includes('transId')) { // '23505' is the PostgreSQL error code for unique violations
-        throw ExceptionHelper.BadRequest('Transaction Id already exists, please use a different one.');
+      if (error.code === '23505' && error.detail.includes('transId')) {
+        // '23505' is the PostgreSQL error code for unique violations
+        throw ExceptionHelper.BadRequest(
+          'Transaction Id already exists, please use a different one.',
+        );
       }
       throw ExceptionHelper.BadRequest(
         error?.message || 'Something went wrong',
@@ -52,7 +60,8 @@ export class StockManagementService implements IStockManagementService {
     try {
       const [stocks, count] = await this.repository.findAndCount({
         where: {
-          isDeleted: false,stockType: pageOptionsDto.stockType
+          isDeleted: false,
+          stockType: pageOptionsDto.stockType,
         },
         loadEagerRelations: true,
         skip: pageOptionsDto.skip,
@@ -112,13 +121,13 @@ export class StockManagementService implements IStockManagementService {
       const stock = await this.repository.findOne({
         where: { id: stockId, isDeleted: false },
       });
-  
+
       if (!stock) {
         throw new NotFoundException(
           `Vendor with ID ${stockId} not found or is already deleted.`,
         );
       }
-  
+
       return stock; // Return the full vendor entity
     } catch (error) {
       if (error instanceof NotFoundException) {
@@ -127,8 +136,6 @@ export class StockManagementService implements IStockManagementService {
       throw new InternalServerErrorException('An unexpected error occurred.');
     }
   }
-  
-  
 
   public async updateStock(
     request: UpdateStockRequest,
@@ -148,7 +155,7 @@ export class StockManagementService implements IStockManagementService {
       const cleanedRequest = cleanObject(request);
 
       // Use Object.assign to update the vendor with cleanedRequest fields
-    Object.assign(stock, cleanedRequest);
+      Object.assign(stock, cleanedRequest);
 
       stock.updatedBy = 'admin'; // Use actual user details here if needed
       stock.updatedDate = new Date();

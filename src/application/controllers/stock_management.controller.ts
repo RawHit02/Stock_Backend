@@ -40,7 +40,6 @@ export class StockManagementController {
     description:
       'With this admin/subadmin can create an inward or outward for stock in our system',
   })
-
   createStock(@Body() request: CreateStockRequest, @Req() req: Request) {
     return this.stockService.createStock(request);
   }
@@ -68,7 +67,7 @@ export class StockManagementController {
     @Param('stockId') stockId: string, // ID from the URL path
     @Body() deleteStockRequest: DeleteStockRequest, // Optional deletedBy from body
   ) {
-    return this.stockService.deleteStock(stockId,deleteStockRequest.deletedBy,);
+    return this.stockService.deleteStock(stockId, deleteStockRequest.deletedBy);
   }
 
   @Get('getStockById/:stockId')
@@ -77,10 +76,7 @@ export class StockManagementController {
     summary: 'Get Stock By ID - Admin and SubAdmin',
     description: 'Allows admins to retrieve stock details by stock ID.',
   })
-  async getStockById(
-    @Param('stockId') stockId: string,
-    @Req() req: Request,
-  ) {
+  async getStockById(@Param('stockId') stockId: string, @Req() req: Request) {
     return this.stockService.getStockById(stockId);
   }
 
@@ -90,10 +86,7 @@ export class StockManagementController {
     summary: 'Update Stock - Admin and SubAdmin',
     description: 'Allows admins to update stock details by ID',
   })
-  async updateStock(
-    @Body() request: UpdateStockRequest,
-    @Req() req: Request,
-  ) {
+  async updateStock(@Body() request: UpdateStockRequest, @Req() req: Request) {
     return this.stockService.updateStock(request);
   }
 }

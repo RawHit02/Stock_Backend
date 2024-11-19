@@ -14,5 +14,5 @@ export class GetAllStockRequest extends PageOptionsDto {
   @ApiProperty()
   @Type(() => String)
   @IsNotEmpty({ message: 'Stock type is required' })
-   stockType: StockType;
+  stockType: StockType;
 }

@@ -5,8 +5,7 @@ import { StockType } from 'src/infrastructure/helpers/stock_type_helper';
 
 @Entity({ name: 'StockManagementTbl' })
 export class StockManagementEntity extends EntityBase {
-
-    @AutoMap()
+  @AutoMap()
   @Column({
     name: 'StockType',
     type: 'enum',
@@ -90,9 +89,9 @@ export class StockManagementEntity extends EntityBase {
     type: 'character varying',
     length: 100,
     nullable: true,
-    default: "N/A",
+    default: 'N/A',
   })
-  receivedBy?: string; 
+  receivedBy?: string;
 
   @AutoMap()
   @Column({
@@ -108,8 +107,7 @@ export class StockManagementEntity extends EntityBase {
     name: 'Notes',
     type: 'text',
     nullable: true,
-    default: "N/A",
+    default: 'N/A',
   })
   notes?: string; // Notes (e.g., Purchased from vendor)
-  
 }

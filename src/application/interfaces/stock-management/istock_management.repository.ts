@@ -3,6 +3,4 @@ import { StockManagementEntity } from 'src/infrastructure/data-access/entities/s
 
 export interface IStockManagementRepository
   extends IAsyncRepository<StockManagementEntity> {}
-export const IStockManagementRepository = Symbol(
-  'IStockManagementRepository',
-);
+export const IStockManagementRepository = Symbol('IStockManagementRepository');

@@ -2,7 +2,12 @@ import { Mapper } from '@automapper/core';
 import { v4 as uuidv4 } from 'uuid';
 import { InjectMapper } from '@automapper/nestjs';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
-import { Inject, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from '@nestjs/common';
 import { IVendorManagementService } from 'src/application/interfaces/vendor-management/ivendor_management.service';
 import { GetAllVendorRequest } from 'src/models/vendor-management/get_all_vendor_request';
 import { VendorListResponse } from 'src/models/vendor-management/vendor_list.response';
@@ -38,8 +43,11 @@ export class VendorManagementService implements IVendorManagementService {
       await this.repository.save(entity);
       return entity.id;
     } catch (error) {
-      if (error.code === '23505' && error.detail.includes('Email')) { // '23505' is the PostgreSQL error code for unique violations
-        throw ExceptionHelper.BadRequest('Email already exists, please use a different one.');
+      if (error.code === '23505' && error.detail.includes('Email')) {
+        // '23505' is the PostgreSQL error code for unique violations
+        throw ExceptionHelper.BadRequest(
+          'Email already exists, please use a different one.',
+        );
       }
       throw ExceptionHelper.BadRequest(
         error?.message || 'Something went wrong',
@@ -52,10 +60,11 @@ export class VendorManagementService implements IVendorManagementService {
   ): Promise<ResultResponse<PageDto<VendorListResponse>>> {
     try {
       //console.log("First"+pageOptionsDto);
-     // console.log("Second"+pageOptionsDto.vendorType);
+      // console.log("Second"+pageOptionsDto.vendorType);
       const [vendors, count] = await this.repository.findAndCount({
         where: {
-          isDeleted: false,vendorType: pageOptionsDto.vendorType
+          isDeleted: false,
+          vendorType: pageOptionsDto.vendorType,
         },
         loadEagerRelations: true,
         skip: pageOptionsDto.skip,
@@ -115,13 +124,13 @@ export class VendorManagementService implements IVendorManagementService {
       const vendor = await this.repository.findOne({
         where: { id: vendorId, isDeleted: false },
       });
-  
+
       if (!vendor) {
         throw new NotFoundException(
           `Vendor with ID ${vendorId} not found or is already deleted.`,
         );
       }
-  
+
       return vendor; // Return the full vendor entity
     } catch (error) {
       if (error instanceof NotFoundException) {
@@ -130,8 +139,6 @@ export class VendorManagementService implements IVendorManagementService {
       throw new InternalServerErrorException('An unexpected error occurred.');
     }
   }
-  
-  
 
   public async updateVendor(
     request: UpdateVendorRequest,
@@ -151,7 +158,7 @@ export class VendorManagementService implements IVendorManagementService {
       const cleanedRequest = cleanObject(request);
 
       // Use Object.assign to update the vendor with cleanedRequest fields
-    Object.assign(vendor, cleanedRequest);
+      Object.assign(vendor, cleanedRequest);
 
       vendor.updatedBy = 'admin'; // Use actual user details here if needed
       vendor.updatedDate = new Date();

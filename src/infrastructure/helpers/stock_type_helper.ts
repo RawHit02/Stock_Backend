@@ -1,4 +1,4 @@
 export enum StockType {
-    Inward = 'inward',
-    Outward = 'outward',
-  }
+  Inward = 'inward',
+  Outward = 'outward',
+}

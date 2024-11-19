@@ -1,12 +1,7 @@
 import { AutoMap } from '@automapper/classes';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import {
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  Length,
-} from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, Length } from 'class-validator';
 import { StockType } from 'src/infrastructure/helpers/stock_type_helper';
 
 export class CreateStockRequest {
@@ -33,7 +28,7 @@ export class CreateStockRequest {
   @ApiProperty({
     description: 'Description of the stock item',
     example: 'Electronic gadgets',
-  })  
+  })
   @Type(() => String)
   @IsString()
   @IsNotEmpty({ message: 'Description is required' })
@@ -99,7 +94,9 @@ export class CreateStockRequest {
   })
   @Type(() => String)
   @IsString()
-  @Length(1, 50, { message: 'Batch number must be between 1 and 50 characters' })
+  @Length(1, 50, {
+    message: 'Batch number must be between 1 and 50 characters',
+  })
   @IsNotEmpty({ message: 'Batch number is required' })
   batchNumber: string;
 
@@ -110,7 +107,9 @@ export class CreateStockRequest {
   })
   @Type(() => String)
   @IsString()
-  @Length(1, 100, { message: 'Receiver name must be between 1 and 100 characters' })
+  @Length(1, 100, {
+    message: 'Receiver name must be between 1 and 100 characters',
+  })
   @IsOptional()
   receivedBy?: string;
 
@@ -134,5 +133,4 @@ export class CreateStockRequest {
   @IsOptional()
   @IsString()
   notes?: string;
-
 }
