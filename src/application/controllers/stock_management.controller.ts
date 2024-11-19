@@ -44,7 +44,7 @@ export class StockManagementController {
     return this.stockService.createStock(request);
   }
 
-  @Get('getStock')
+  @Get('getStock/:stockType')
   @ApiBearerAuth('access-token')
   // @UseGuards(RoleGuard)
   // @SetMetadata('role', [
@@ -52,7 +52,7 @@ export class StockManagementController {
   //   RoleConstants.subAdmin,
   //   RoleConstants.stock,
   // ])
-  getStock(@Query() pageOptionsDto: GetAllStockRequest, @Req() req: Request) {
+  getStock(@Param() pageOptionsDto: GetAllStockRequest, @Req() req: Request) {
     return this.stockService.getStock(pageOptionsDto);
   }
 
