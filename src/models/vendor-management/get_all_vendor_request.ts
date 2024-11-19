@@ -1,12 +1,18 @@
 import { AutoMap } from '@automapper/classes';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsDecimal, IsInt, IsNumber, IsOptional, Min } from 'class-validator';
+import { IsDecimal, IsInt, IsNotEmpty, IsNumber, IsOptional, Min } from 'class-validator';
 import { PageOptionsDto } from '../base/dtos';
+import { VendorType } from 'src/infrastructure/helpers/vendor_type_helper';
 
 export class GetAllVendorRequest extends PageOptionsDto {
   @ApiPropertyOptional()
-  @Type(() => String)
   @IsOptional()
-  readonly userId?: String;
+  @Type(() => String)
+  readonly userId?: string;
+
+  @ApiProperty()
+  @Type(() => String)
+  @IsNotEmpty()
+   vendorType: VendorType;
 }

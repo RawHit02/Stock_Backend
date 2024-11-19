@@ -34,7 +34,4 @@ export enum eRequestHeaderConfigKeys {
   REAL_IP = 'x-real-ip',
 }
 
-export enum stockType {
-  Inward = 'Inward',
-  Outward = 'Outward',
-}
+

@@ -17,7 +17,7 @@ export class VendorManagementEntity extends EntityBase {
 
   @AutoMap()
   @Column({
-    name: 'vendorType',
+    name: 'VendorType',
     type: 'enum',
     enum: VendorType,
     default: VendorType.Buyer,
@@ -26,14 +26,14 @@ export class VendorManagementEntity extends EntityBase {
 
   @AutoMap()
   @Column({
-    name: 'name',
+    name: 'Name',
     type: 'character varying',
   })
   name: string;
 
   @AutoMap()
   @Column({
-    name: 'contactNumber',
+    name: 'ContactNumber',
     type: 'character varying',
     length: 15,
     nullable: false,
@@ -42,7 +42,7 @@ export class VendorManagementEntity extends EntityBase {
 
   @AutoMap()
   @Column({
-    name: 'whatsappNumber',
+    name: 'WhatsappNumber',
     type: 'character varying',
     length: 15,
     nullable: false,
@@ -51,7 +51,7 @@ export class VendorManagementEntity extends EntityBase {
 
   @AutoMap()
   @Column({
-    name: 'email',
+    name: 'Email',
     type: 'character varying',
     length: 150,
     unique: true,
@@ -61,7 +61,7 @@ export class VendorManagementEntity extends EntityBase {
 
   @AutoMap()
   @Column({
-    name: 'address',
+    name: 'Address',
     type: 'text',
     nullable: false,
   })
@@ -69,7 +69,7 @@ export class VendorManagementEntity extends EntityBase {
 
   @AutoMap()
   @Column({
-    name: 'isDeleted',
+    name: 'IsDeleted',
     type: 'boolean',
     default: false,
   })
@@ -77,7 +77,7 @@ export class VendorManagementEntity extends EntityBase {
 
   @AutoMap()
   @Column({
-    name: 'updatedBy',
+    name: 'UpdatedBy',
     type: 'character varying',
     nullable: true,
   })

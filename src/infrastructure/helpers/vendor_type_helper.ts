@@ -1,4 +1,4 @@
 export enum VendorType {
-  Buyer = 'Buyer',
-  Supplier = 'Supplier',
+  Buyer = 'buyer',
+  Supplier = 'supplier',
 }
