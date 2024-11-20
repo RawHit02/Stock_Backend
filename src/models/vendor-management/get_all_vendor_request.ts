@@ -3,6 +3,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   IsDecimal,
+  IsEnum,
   IsInt,
   IsNotEmpty,
   IsNumber,
@@ -18,8 +19,12 @@ export class GetAllVendorRequest extends PageOptionsDto {
   @Type(() => String)
   readonly userId?: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    enum: VendorType,
+    default: VendorType.Buyer,
+  })
   @Type(() => String)
+  @IsEnum(VendorType)
   @IsNotEmpty()
-  vendorType: VendorType;
+  vendorType: VendorType.Buyer;
 }
