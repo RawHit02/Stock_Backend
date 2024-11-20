@@ -33,8 +33,3 @@ export enum eRequestHeaderConfigKeys {
   EVENT_NAME = 'x-event-name',
   REAL_IP = 'x-real-ip',
 }
-
-export enum stockType {
-  Inward = 'Inward',
-  Outward = 'Outward',
-}

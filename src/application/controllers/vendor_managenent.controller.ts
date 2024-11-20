@@ -45,7 +45,7 @@ export class VendorManagementController {
     return this.vendorService.createVendor(request);
   }
 
-  @Get('getVendor')
+  @Get('getVendor/:vendorType')
   @ApiBearerAuth('access-token')
   // @UseGuards(RoleGuard)
   // @SetMetadata('role', [
@@ -53,7 +53,7 @@ export class VendorManagementController {
   //   RoleConstants.subAdmin,
   //   RoleConstants.vendor,
   // ])
-  getVendor(@Query() pageOptionsDto: GetAllVendorRequest, @Req() req: Request) {
+  getVendor(@Param() pageOptionsDto: GetAllVendorRequest, @Req() req: Request) {
     return this.vendorService.getVendor(pageOptionsDto);
   }
 
