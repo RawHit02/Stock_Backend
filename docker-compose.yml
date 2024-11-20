@@ -21,7 +21,7 @@ services:
     environment:
       POSTGRES_DB: stock-dev
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: admin
+      POSTGRES_PASSWORD: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
