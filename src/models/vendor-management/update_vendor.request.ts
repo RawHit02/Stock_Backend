@@ -14,12 +14,13 @@ import { VendorType } from 'src/infrastructure/helpers/vendor_type_helper';
 export class UpdateVendorRequest {
   @AutoMap()
   @Type(() => String)
-  @IsNotEmpty()
+  //@IsNotEmpty()
+  @IsOptional()
   @ApiProperty({
     default: 'e7f7b6c7-1dba-4704-836a-c5cd07b6025e',
     description: 'Vendor ID',
   })
-  vendorId: string;
+  vendorId?: string;
 
   @AutoMap()
   @IsOptional()
