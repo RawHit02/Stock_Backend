@@ -32,14 +32,14 @@ export class StockManagementEntity extends EntityBase {
   })
   description: string;
 
-  @AutoMap()
-  @Column({
-    name: 'ItemType',
-    type: 'character varying',
-    length: 100,
-    nullable: false,
-  })
-  itemType: string;
+  // @AutoMap()
+  // @Column({
+  //   name: 'ItemType',
+  //   type: 'character varying',
+  //   length: 100,
+  //   nullable: false,
+  // })
+  // itemType: string;
 
   @AutoMap()
   @Column({
@@ -59,21 +59,41 @@ export class StockManagementEntity extends EntityBase {
   })
   unitPrice: string; // Store unit price as a string (e.g.₹5000 or $100.50)
 
+  // @AutoMap()
+  // @Column({
+  //   name: 'Commission',
+  //   type: 'character varying',
+  //   nullable: false,
+  // })
+  // commission: string; // Commission (10%)
+
   @AutoMap()
   @Column({
     name: 'Commission',
-    type: 'character varying',
-    nullable: false,
+    type: 'decimal',
+    precision: 20,
+    scale: 2,
+    default: 0.0,
   })
-  commission: string; // Commission (10%)
+  commission: number;
+
+  // @AutoMap()
+  // @Column({
+  //   name: 'TotalValue',
+  //   type: 'character varying',
+  //   nullable: false,
+  // })
+  // totalValue: string; // Total value (₹10,000,$1000)
 
   @AutoMap()
   @Column({
     name: 'TotalValue',
-    type: 'character varying',
-    nullable: false,
+    type: 'decimal',
+    precision: 20,
+    scale: 2,
+    default: 0.0,
   })
-  totalValue: string; // Total value (₹10,000,$1000)
+  totalValue: number;
 
   @AutoMap()
   @Column({
@@ -83,16 +103,6 @@ export class StockManagementEntity extends EntityBase {
     nullable: false,
   })
   batchNumber: string; // Batch number (BN001)
-
-  @AutoMap()
-  @Column({
-    name: 'ReceivedBy',
-    type: 'character varying',
-    length: 100,
-    nullable: true,
-    default: 'N/A',
-  })
-  receivedBy?: string;
 
   @AutoMap()
   @Column({
