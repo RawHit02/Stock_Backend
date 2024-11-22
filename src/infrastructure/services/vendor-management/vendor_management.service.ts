@@ -148,8 +148,8 @@ export class VendorManagementService implements IVendorManagementService {
     vendorId: string,
     request: UpdateVendorRequest,
   ): Promise<VendorResponse> {
-   // console.log(request);
-    //console.log(vendorId);
+    console.log(request);
+    console.log(vendorId);
 
     try {
       const vendor = await this.repository.findOne({
@@ -159,7 +159,7 @@ export class VendorManagementService implements IVendorManagementService {
 
       if (!vendor) {
         throw ExceptionHelper.NotFound(
-          `Vendor with ID ${request.vendorId} not found or already deleted.`,
+          `Vendor with ID ${vendorId} not found or already deleted.`,
         );
       }
 
