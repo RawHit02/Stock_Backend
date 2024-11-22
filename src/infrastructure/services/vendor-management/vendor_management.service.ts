@@ -148,10 +148,14 @@ export class VendorManagementService implements IVendorManagementService {
     vendorId: string,
     request: UpdateVendorRequest,
   ): Promise<VendorResponse> {
+   // console.log(request);
+    //console.log(vendorId);
+
     try {
       const vendor = await this.repository.findOne({
         where: { id: vendorId, isDeleted: false },
       });
+
 
       if (!vendor) {
         throw ExceptionHelper.NotFound(
