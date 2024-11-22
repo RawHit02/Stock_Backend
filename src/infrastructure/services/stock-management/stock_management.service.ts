@@ -42,10 +42,9 @@ export class StockManagementService implements IStockManagementService {
         CreateStockRequest,
         StockManagementEntity,
       );
-      let vendor=await this.vendorService.findOneByName(request.vendorId); //finding vendor from vendorId
+      let vendor = await this.vendorService.findOneByName(request.vendorId); //finding vendor from vendorId
       entity.createdBy = 'admin';
-      entity.vendorId=vendor,
-      await this.repository.save(entity);
+      (entity.vendorId = vendor), await this.repository.save(entity);
       return entity.id;
     } catch (error) {
       if (error.code === '23505' && error.detail.includes('transId')) {
@@ -69,6 +68,7 @@ export class StockManagementService implements IStockManagementService {
           isDeleted: false,
           stockType: pageOptionsDto.stockType,
         },
+        relations: ['vendorId'],
         loadEagerRelations: true,
         skip: pageOptionsDto.skip,
         take: pageOptionsDto.take,

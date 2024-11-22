@@ -59,4 +59,7 @@ package-lock.json
 *.http 
 
 #env file
-.env
+*.env
+
+#docker file
+*.yml

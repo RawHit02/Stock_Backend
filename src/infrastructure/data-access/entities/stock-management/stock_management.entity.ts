@@ -113,7 +113,7 @@ export class StockManagementEntity extends EntityBase {
   notes?: string; // Notes (e.g., Purchased from vendor)
 
   @ManyToOne(() => VendorManagementEntity, (vendor) => vendor.id,{eager: true,nullable: false})
-  @JoinColumn({ name: 'VendorId', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'VendorId',  })
   vendorId: VendorManagementEntity;
 
 
