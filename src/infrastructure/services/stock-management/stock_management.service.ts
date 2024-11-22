@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { InjectMapper } from '@automapper/nestjs';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import {
+  forwardRef,
   Inject,
   Injectable,
   InternalServerErrorException,
@@ -21,6 +22,7 @@ import { UpdateStockRequest } from 'src/models/stock-management/update_stock.req
 import { StockResponse } from 'src/models/base/stock_response';
 import { StockManagementEntity } from 'src/infrastructure/data-access/entities/stock-management/stock_management.entity';
 import { CreateStockRequest } from 'src/models/stock-management/create_stock.request';
+import { VendorManagementService } from '../vendor-management/vendor_management.service';
 
 @Injectable()
 export class StockManagementService implements IStockManagementService {
@@ -29,6 +31,8 @@ export class StockManagementService implements IStockManagementService {
     private readonly repository: IStockManagementRepository,
     @InjectMapper() private mapper: Mapper,
     @InjectEntityManager() private _entityManager: EntityManager,
+    @Inject(forwardRef(() => VendorManagementService))
+    private readonly vendorService: VendorManagementService,
   ) {}
 
   public async createStock(request: CreateStockRequest): Promise<string> {
@@ -38,8 +42,9 @@ export class StockManagementService implements IStockManagementService {
         CreateStockRequest,
         StockManagementEntity,
       );
+      let vendor = await this.vendorService.findOneByName(request.vendorId); //finding vendor from vendorId
       entity.createdBy = 'admin';
-      await this.repository.save(entity);
+      (entity.vendorId = vendor), await this.repository.save(entity);
       return entity.id;
     } catch (error) {
       if (error.code === '23505' && error.detail.includes('transId')) {
@@ -63,6 +68,7 @@ export class StockManagementService implements IStockManagementService {
           isDeleted: false,
           stockType: pageOptionsDto.stockType,
         },
+        relations: ['vendorId'],
         loadEagerRelations: true,
         skip: pageOptionsDto.skip,
         take: pageOptionsDto.take,

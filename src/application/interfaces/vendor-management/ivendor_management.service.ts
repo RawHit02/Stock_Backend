@@ -14,7 +14,7 @@ export interface IVendorManagementService {
   ): Promise<ResultResponse<PageDto<VendorListResponse>>>;
   deleteVendor(vendorId: string, deletedBy?: string): Promise<string>;
   getVendorById(vendorId: string): Promise<VendorManagementEntity>;
-  updateVendor(request: UpdateVendorRequest): Promise<VendorResponse>;
+  updateVendor(vendorId: string,request: UpdateVendorRequest): Promise<VendorResponse>;
 }
 
 export const IVendorManagementService = Symbol('IVendorManagementService');

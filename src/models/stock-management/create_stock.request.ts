@@ -133,4 +133,16 @@ export class CreateStockRequest {
   @IsOptional()
   @IsString()
   notes?: string;
+
+  @AutoMap()
+  @ApiProperty({
+    description: 'Id of the Vendor that exists',
+    type: "string",
+    required: true,
+    example: "John Doe",
+  })
+  @Type(() => String)
+  @IsNotEmpty()
+  @IsString()
+  vendorId: string;
 }

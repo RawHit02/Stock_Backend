@@ -2,6 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { EntityBase } from '../base/entity-base.entity';
 import { AutoMap } from '@automapper/classes';
 import { VendorType } from 'src/infrastructure/helpers/vendor_type_helper';
+import { StockManagementEntity } from '../stock-management/stock_management.entity';
 
 @Entity({ name: 'VendorManagementTbl' })
 export class VendorManagementEntity extends EntityBase {
@@ -82,4 +83,7 @@ export class VendorManagementEntity extends EntityBase {
     nullable: true,
   })
   updatedBy?: string;
+
+  @OneToMany(() => StockManagementEntity, (stock) => stock.vendorId)
+  stocks: StockManagementEntity[];
 }

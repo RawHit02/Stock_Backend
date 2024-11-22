@@ -87,16 +87,17 @@ export class VendorManagementController {
     return this.vendorService.getVendorById(vendorId);
   }
 
-  @Patch('updateVendor')
+  @Patch('updateVendor/:vendorId')
   @ApiBearerAuth('access-token')
   @ApiOperation({
     summary: 'Update Vendor - Admin and SubAdmin',
     description: 'Allows admins to update vendor details by ID',
   })
   async updateVendor(
+    @Param('vendorId') vendorId: string,
     @Body() request: UpdateVendorRequest,
     @Req() req: Request,
   ) {
-    return this.vendorService.updateVendor(request);
+    return this.vendorService.updateVendor(vendorId,request);
   }
 }

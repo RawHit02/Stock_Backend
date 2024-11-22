@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { InjectMapper } from '@automapper/nestjs';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import {
+  forwardRef,
   Inject,
   Injectable,
   InternalServerErrorException,
@@ -21,6 +22,7 @@ import { ExceptionHelper } from 'src/application/helpers/exception.helper';
 import { VendorResponse } from 'src/models/base/vendor_response';
 import { UpdateVendorRequest } from 'src/models/vendor-management/update_vendor.request';
 import { cleanObject } from '../helpers/mapper_object';
+import { StockManagementService } from '../stock-management/stock_management.service';
 
 @Injectable()
 export class VendorManagementService implements IVendorManagementService {
@@ -29,6 +31,8 @@ export class VendorManagementService implements IVendorManagementService {
     private readonly repository: IVendorManagementRepository,
     @InjectMapper() private mapper: Mapper,
     @InjectEntityManager() private _entityManager: EntityManager,
+    @Inject()//(forwardRef(() => StockManagementService))
+    private readonly stockService: StockManagementService,
   ) {}
 
   public async createVendor(request: CreateVendorRequest): Promise<string> {
@@ -141,16 +145,21 @@ export class VendorManagementService implements IVendorManagementService {
   }
 
   public async updateVendor(
+    vendorId: string,
     request: UpdateVendorRequest,
   ): Promise<VendorResponse> {
+    console.log(request);
+    console.log(vendorId);
+
     try {
       const vendor = await this.repository.findOne({
-        where: { id: request.vendorId, isDeleted: false },
+        where: { id: vendorId, isDeleted: false },
       });
+
 
       if (!vendor) {
         throw ExceptionHelper.NotFound(
-          `Vendor with ID ${request.vendorId} not found or already deleted.`,
+          `Vendor with ID ${vendorId} not found or already deleted.`,
         );
       }
 
@@ -172,4 +181,8 @@ export class VendorManagementService implements IVendorManagementService {
       );
     }
   }
+  public async findOneByName(id :string){
+    return await this.repository.findOne({
+      where: { id: id, isDeleted: false },});
+  } 
 }
