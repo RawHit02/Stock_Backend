@@ -35,6 +35,31 @@ export class VendorManagementService implements IVendorManagementService {
 
   public async createVendor(request: CreateVendorRequest): Promise<string> {
     try {
+      // Check if a vendor with the given email already exists
+      const existingVendor = await this.repository.findOne({
+        where: { email: request.email },
+      });
+  
+      if (existingVendor) {
+        if (!existingVendor.isDeleted) {
+          // If the vendor exists and is not deleted, throw an error
+          throw ExceptionHelper.BadRequest(
+            'Email already exists, please use a different one.',
+          );
+        } else {
+          // If the vendor exists and is deleted, allow creation by reactivating the vendor
+          Object.assign(existingVendor, {
+            ...request,
+            isDeleted: false, // Reactivate the vendor
+            updatedBy: 'admin',
+            updatedDate: new Date(),
+          });
+          await this.repository.save(existingVendor);
+          return existingVendor.id;
+        }
+      }
+  
+      // If no existing vendor is found, create a new one
       const entity = this.mapper.map(
         request,
         CreateVendorRequest,
@@ -46,7 +71,7 @@ export class VendorManagementService implements IVendorManagementService {
       return entity.id;
     } catch (error) {
       if (error.code === '23505' && error.detail.includes('Email')) {
-        // '23505' is the PostgreSQL error code for unique violations
+         // '23505' is the PostgreSQL error code for unique violations
         throw ExceptionHelper.BadRequest(
           'Email already exists, please use a different one.',
         );
@@ -56,6 +81,7 @@ export class VendorManagementService implements IVendorManagementService {
       );
     }
   }
+  
 
   public async getVendor(
     pageOptionsDto: GetAllVendorRequest,
