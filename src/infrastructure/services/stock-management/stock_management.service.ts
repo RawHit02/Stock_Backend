@@ -1,5 +1,4 @@
 import { Mapper } from '@automapper/core';
-import { v4 as uuidv4 } from 'uuid';
 import { InjectMapper } from '@automapper/nestjs';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import {
@@ -25,7 +24,6 @@ import { CreateStockRequest } from 'src/models/stock-management/create_stock.req
 import { VendorManagementService } from '../vendor-management/vendor_management.service';
 import { VendorManagementEntity } from 'src/infrastructure/data-access/entities';
 import { VendorResponse } from 'src/models/base/vendor_response';
-import { PageStockDto } from 'src/models/base/dtos/page-stock.dto';
 
 @Injectable()
 export class StockManagementService implements IStockManagementService {

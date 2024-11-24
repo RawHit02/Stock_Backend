@@ -1,7 +1,14 @@
 import { AutoMap } from '@automapper/classes';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, Length } from 'class-validator';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Length,
+} from 'class-validator';
 import { StockType } from 'src/infrastructure/helpers/stock_type_helper';
 
 export class CreateStockRequest {
@@ -71,7 +78,7 @@ export class CreateStockRequest {
     example: '10.56',
   })
   @Type(() => Number)
-  @IsNumber( { maxDecimalPlaces: 2 }, { message: 'Commission must be a number' })
+  @IsNumber({ maxDecimalPlaces: 2 }, { message: 'Commission must be a number' })
   @IsNotEmpty({ message: 'Commission is required' })
   commission: number;
 
@@ -81,7 +88,10 @@ export class CreateStockRequest {
     example: '10001',
   })
   @Type(() => Number)
-  @IsNumber( { maxDecimalPlaces: 2 }, { message: 'Total value must be a number' })
+  @IsNumber(
+    { maxDecimalPlaces: 2 },
+    { message: 'Total value must be a number' },
+  )
   @IsNotEmpty({ message: 'Total value is required' })
   totalValue: number;
 
@@ -135,9 +145,9 @@ export class CreateStockRequest {
   @AutoMap()
   @ApiProperty({
     description: 'Id of the Vendor that exists',
-    type: "string",
+    type: 'string',
     required: true,
-    example: "efe680c8-9ec4-429c-bfdc-804b23666469",
+    example: 'efe680c8-9ec4-429c-bfdc-804b23666469',
   })
   @Type(() => String)
   @IsNotEmpty()

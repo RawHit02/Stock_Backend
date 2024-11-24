@@ -88,7 +88,9 @@ export class StockManagementController {
   })
   async updateStock(
     @Param('stockId') stockId: string,
-    @Body() request: UpdateStockRequest, @Req() req: Request) {
+    @Body() request: UpdateStockRequest,
+    @Req() req: Request,
+  ) {
     return this.stockService.updateStock(stockId, request);
   }
 }

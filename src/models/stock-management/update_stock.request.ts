@@ -1,16 +1,10 @@
 import { AutoMap } from '@automapper/classes';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import {
-  IsOptional,
-  IsEnum,
-  IsInt,
-  IsNumber,
-} from 'class-validator';
+import { IsOptional, IsEnum, IsInt, IsNumber } from 'class-validator';
 import { StockType } from 'src/infrastructure/helpers/stock_type_helper';
 
 export class UpdateStockRequest {
-  
   @AutoMap()
   @IsOptional()
   @IsEnum(StockType)
@@ -61,7 +55,7 @@ export class UpdateStockRequest {
 
   @AutoMap()
   @Type(() => Number)
-  @IsNumber( { maxDecimalPlaces: 2 }, { message: 'Commission must be a number' })
+  @IsNumber({ maxDecimalPlaces: 2 }, { message: 'Commission must be a number' })
   @IsOptional()
   @ApiProperty({
     default: '10.56',
@@ -72,7 +66,7 @@ export class UpdateStockRequest {
   @AutoMap()
   @Type(() => Number)
   @IsOptional()
-  @IsNumber( { maxDecimalPlaces: 2 }, { message: 'Commission must be a number' })
+  @IsNumber({ maxDecimalPlaces: 2 }, { message: 'Commission must be a number' })
   @ApiProperty({
     example: '1000.99',
     description: 'Updated Total Value',

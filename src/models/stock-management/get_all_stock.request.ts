@@ -6,11 +6,13 @@ import { PageOptionsDto } from '../base/dtos';
 import { StockType } from 'src/infrastructure/helpers/stock_type_helper';
 
 export class GetAllStockRequest extends PageOptionsDto {
+  @AutoMap()
   @ApiPropertyOptional()
   @Type(() => String)
   @IsOptional()
   readonly userId?: String;
-  
+
+  @AutoMap()
   @ApiProperty({
     enum: StockType,
     default: StockType.Inward,

@@ -1,9 +1,7 @@
 import { Mapper } from '@automapper/core';
-import { v4 as uuidv4 } from 'uuid';
 import { InjectMapper } from '@automapper/nestjs';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import {
-  forwardRef,
   Inject,
   Injectable,
   InternalServerErrorException,
@@ -31,7 +29,7 @@ export class VendorManagementService implements IVendorManagementService {
     private readonly repository: IVendorManagementRepository,
     @InjectMapper() private mapper: Mapper,
     @InjectEntityManager() private _entityManager: EntityManager,
-    @Inject()//(forwardRef(() => StockManagementService))
+    @Inject() //(forwardRef(() => StockManagementService))
     private readonly stockService: StockManagementService,
   ) {}
 
@@ -148,12 +146,10 @@ export class VendorManagementService implements IVendorManagementService {
     vendorId: string,
     request: UpdateVendorRequest,
   ): Promise<VendorResponse> {
-
     try {
       const vendor = await this.repository.findOne({
         where: { id: vendorId, isDeleted: false },
       });
-
 
       if (!vendor) {
         throw ExceptionHelper.NotFound(
@@ -179,8 +175,9 @@ export class VendorManagementService implements IVendorManagementService {
       );
     }
   }
-  public async findOneByName(id :string){
+  public async findOneByName(id: string) {
     return await this.repository.findOne({
-      where: { id: id, isDeleted: false },});
-  } 
+      where: { id: id, isDeleted: false },
+    });
+  }
 }

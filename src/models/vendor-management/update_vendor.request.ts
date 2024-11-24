@@ -12,12 +12,11 @@ import {
 import { VendorType } from 'src/infrastructure/helpers/vendor_type_helper';
 
 export class UpdateVendorRequest {
-
   @AutoMap()
   @IsOptional()
   @ApiProperty({
     description: 'Specify if the vendor is a Buyer or Supplier',
-    default: VendorType.Buyer
+    default: VendorType.Buyer,
   })
   vendorType?: VendorType;
 

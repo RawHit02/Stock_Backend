@@ -47,7 +47,7 @@ export class StockManagementEntity extends EntityBase {
     type: 'int',
     default: 0,
   })
-  quantity: number; 
+  quantity: number;
 
   @AutoMap()
   @Column({
@@ -61,7 +61,7 @@ export class StockManagementEntity extends EntityBase {
       from: (value: string) => parseFloat(value),
     },
   })
-  unitPrice: number; 
+  unitPrice: number;
 
   @AutoMap()
   @Column({
@@ -118,9 +118,10 @@ export class StockManagementEntity extends EntityBase {
   })
   notes?: string; // Notes (e.g., Purchased from vendor)
 
-  @ManyToOne(() => VendorManagementEntity, (vendor) => vendor.id,{eager: true,nullable: false})
-  @JoinColumn({ name: 'VendorId',  })
+  @ManyToOne(() => VendorManagementEntity, (vendor) => vendor.id, {
+    eager: true,
+    nullable: false,
+  })
+  @JoinColumn({ name: 'VendorId' })
   vendor: VendorManagementEntity;
-
-
 }
