@@ -32,40 +32,36 @@ export class StockManagementEntity extends EntityBase {
   })
   description: string;
 
-  // @AutoMap()
-  // @Column({
-  //   name: 'ItemType',
-  //   type: 'character varying',
-  //   length: 100,
-  //   nullable: false,
-  // })
-  // itemType: string;
+  @AutoMap()
+  @Column({
+    name: 'ItemType',
+    type: 'character varying',
+    length: 100,
+    nullable: false,
+  })
+  itemType: string;
 
   @AutoMap()
   @Column({
     name: 'Quantity',
-    type: 'character varying',
-    length: 50,
-    nullable: false,
+    type: 'int',
+    default: 0,
   })
-  quantity: string; // Quantity (500g, 1kg)
+  quantity: number; 
 
   @AutoMap()
   @Column({
     name: 'UnitPrice',
-    type: 'character varying',
-    length: 20, //length for symbols + numbers
-    nullable: false,
+    type: 'decimal',
+    precision: 20,
+    scale: 2,
+    default: 0.0,
+    transformer: {
+      to: (value: number) => value,
+      from: (value: string) => parseFloat(value),
+    },
   })
-  unitPrice: string; // Store unit price as a string (e.g.₹5000 or $100.50)
-
-  // @AutoMap()
-  // @Column({
-  //   name: 'Commission',
-  //   type: 'character varying',
-  //   nullable: false,
-  // })
-  // commission: string; // Commission (10%)
+  unitPrice: number; 
 
   @AutoMap()
   @Column({
@@ -74,16 +70,12 @@ export class StockManagementEntity extends EntityBase {
     precision: 20,
     scale: 2,
     default: 0.0,
+    transformer: {
+      to: (value: number) => value,
+      from: (value: string) => parseFloat(value),
+    },
   })
   commission: number;
-
-  // @AutoMap()
-  // @Column({
-  //   name: 'TotalValue',
-  //   type: 'character varying',
-  //   nullable: false,
-  // })
-  // totalValue: string; // Total value (₹10,000,$1000)
 
   @AutoMap()
   @Column({
@@ -92,6 +84,10 @@ export class StockManagementEntity extends EntityBase {
     precision: 20,
     scale: 2,
     default: 0.0,
+    transformer: {
+      to: (value: number) => value,
+      from: (value: string) => parseFloat(value),
+    },
   })
   totalValue: number;
 
@@ -124,7 +120,7 @@ export class StockManagementEntity extends EntityBase {
 
   @ManyToOne(() => VendorManagementEntity, (vendor) => vendor.id,{eager: true,nullable: false})
   @JoinColumn({ name: 'VendorId',  })
-  vendorId: VendorManagementEntity;
+  vendor: VendorManagementEntity;
 
 
 }

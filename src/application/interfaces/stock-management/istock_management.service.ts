@@ -16,7 +16,7 @@ export interface IStockManagementService {
   ): Promise<ResultResponse<PageDto<StockListResponse>>>;
   deleteStock(stockId: string, deletedBy?: string): Promise<string>;
   getStockById(stockId: string): Promise<StockManagementEntity>;
-  updateStock(request: UpdateStockRequest): Promise<StockResponse>;
+  updateStock(stockId: string,request: UpdateStockRequest): Promise<StockResponse>;
 }
 
 export const IStockManagementService = Symbol('IStockManagementService');

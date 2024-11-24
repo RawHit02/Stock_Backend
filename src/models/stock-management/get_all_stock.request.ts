@@ -10,7 +10,7 @@ export class GetAllStockRequest extends PageOptionsDto {
   @Type(() => String)
   @IsOptional()
   readonly userId?: String;
-
+  
   @ApiProperty({
     enum: StockType,
     default: StockType.Inward,

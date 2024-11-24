@@ -35,25 +35,25 @@ export class StockResponse {
   @ApiProperty({
     description: 'Quantity of Item',
   })
-  quantity: string;
+  quantity: number;
 
   @AutoMap()
   @ApiProperty({
     description: 'Unit Price',
   })
-  unitPrice: string;
+  unitPrice: number;
 
   @AutoMap()
   @ApiProperty({
     description: 'Commision of Item',
   })
-  commision: string;
+  commission: number;
 
   @AutoMap()
   @ApiProperty({
     description: 'Total Value of Item',
   })
-  totalValue: string;
+  totalValue: number;
 
   @AutoMap()
   @ApiProperty({
@@ -78,6 +78,12 @@ export class StockResponse {
     description: 'Notes',
   })
   notes: string;
+
+  @AutoMap()
+  @ApiProperty({
+    description: 'vendorId',
+  })
+  vendor: string;
 
   @AutoMap()
   @ApiProperty({

@@ -17,6 +17,7 @@ export class UpdateVendorRequest {
   @IsOptional()
   @ApiProperty({
     description: 'Specify if the vendor is a Buyer or Supplier',
+    default: VendorType.Buyer
   })
   vendorType?: VendorType;
 

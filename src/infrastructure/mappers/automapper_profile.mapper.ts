@@ -1,9 +1,6 @@
 import {
   Mapper,
-  MappingProfile,
   createMap,
-  extend,
-  forMember,
   mapFrom,
 } from '@automapper/core';
 import { InjectMapper, AutomapperProfile } from '@automapper/nestjs';
@@ -32,8 +29,12 @@ export class AutoMapperProfileMapper extends AutomapperProfile {
       createMap(mapper, VendorManagementEntity, VendorResponse);
       createMap(mapper, UpdateVendorRequest, VendorManagementEntity);
       createMap(mapper, CreateStockRequest, StockManagementEntity);
-      createMap(mapper, StockManagementEntity, StockListResponse);
-      createMap(mapper, StockManagementEntity, StockResponse);
+      createMap(this.mapper, StockManagementEntity, StockListResponse,/* (mapping) => {
+        mapping.map(
+          (destination) => destination.vendorId,
+          mapFrom((source:StockManagementEntity) => source.vendorId),
+        );
+      }*/);      createMap(mapper, StockManagementEntity, StockResponse);
       createMap(mapper, UpdateStockRequest, StockManagementEntity);
     };
   }

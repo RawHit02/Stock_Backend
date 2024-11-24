@@ -1,7 +1,7 @@
 import { AutoMap } from '@automapper/classes';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsNotEmpty, IsOptional, IsString, Length } from 'class-validator';
+import { IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, Length } from 'class-validator';
 import { StockType } from 'src/infrastructure/helpers/stock_type_helper';
 
 export class CreateStockRequest {
@@ -47,45 +47,43 @@ export class CreateStockRequest {
 
   @AutoMap()
   @ApiProperty({
-    description: 'Quantity of the stock (e.g., 1kg, 500g)',
-    example: '1kg',
+    description: 'Quantity of the stock item',
+    example: '1',
   })
-  @Type(() => String)
-  @IsString()
-  @Length(1, 50, { message: 'Quantity must be between 1 and 50 characters' })
-  @IsNotEmpty({ message: 'Quantity is required' })
-  quantity: string;
+  @Type(() => Number)
+  @IsInt({ message: 'Quantity must be an integer' })
+  @IsNotEmpty({ message: 'Quantity is required and should be a number' })
+  quantity: number;
 
   @AutoMap()
   @ApiProperty({
-    description: 'Unit price of the stock (e.g., ₹5000, $100.50)',
-    example: '₹5000',
+    description: 'Unit price of the stock (e.g., 5000, 100.50)',
+    example: '5000.00',
   })
-  @Type(() => String)
-  @IsString()
-  @Length(1, 20, { message: 'Unit price must be between 1 and 20 characters' })
+  @Type(() => Number)
+  @IsNumber({ maxDecimalPlaces: 2 }, { message: 'Unit price must be a number' })
   @IsNotEmpty({ message: 'Unit price is required' })
-  unitPrice: string;
+  unitPrice: number;
 
   @AutoMap()
   @ApiProperty({
     description: 'Commission percentage for the stock',
-    example: '10%',
+    example: '10.56',
   })
-  @Type(() => String)
-  @IsString()
+  @Type(() => Number)
+  @IsNumber( { maxDecimalPlaces: 2 }, { message: 'Commission must be a number' })
   @IsNotEmpty({ message: 'Commission is required' })
-  commission: string;
+  commission: number;
 
   @AutoMap()
   @ApiProperty({
-    description: 'Total value of the stock (e.g., ₹10,000, $1000)',
-    example: '₹10,000',
+    description: 'Total value of the stock (e.g., 10000)',
+    example: '10001',
   })
-  @Type(() => String)
-  @IsString()
+  @Type(() => Number)
+  @IsNumber( { maxDecimalPlaces: 2 }, { message: 'Total value must be a number' })
   @IsNotEmpty({ message: 'Total value is required' })
-  totalValue: string;
+  totalValue: number;
 
   @AutoMap()
   @ApiProperty({
@@ -139,10 +137,10 @@ export class CreateStockRequest {
     description: 'Id of the Vendor that exists',
     type: "string",
     required: true,
-    example: "John Doe",
+    example: "efe680c8-9ec4-429c-bfdc-804b23666469",
   })
   @Type(() => String)
   @IsNotEmpty()
   @IsString()
-  vendorId: string;
+  vendor: string;
 }

@@ -2,25 +2,15 @@ import { AutoMap } from '@automapper/classes';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
-  IsString,
   IsOptional,
-  Matches,
-  IsEmail,
   IsEnum,
-  IsNotEmpty,
+  IsInt,
+  IsNumber,
 } from 'class-validator';
 import { StockType } from 'src/infrastructure/helpers/stock_type_helper';
 
 export class UpdateStockRequest {
-  @AutoMap()
-  @Type(() => String)
-  @IsNotEmpty()
-  @ApiProperty({
-    default: 'e7f7b6c7-1dba-4704-836a-c5cd07b6025e',
-    description: 'Stock ID',
-  })
-  stockId: string;
-
+  
   @AutoMap()
   @IsOptional()
   @IsEnum(StockType)
@@ -50,40 +40,44 @@ export class UpdateStockRequest {
   itemType?: string;
 
   @AutoMap()
-  @Type(() => String)
+  @Type(() => Number)
+  @IsInt({ message: 'Quantity must be an integer' })
   @IsOptional()
   @ApiProperty({
-    example: '100kg',
+    example: '100',
     description: 'Updated Item Quantity',
   })
-  quantity?: string;
+  quantity?: number;
 
   @AutoMap()
-  @Type(() => String)
+  @Type(() => Number)
+  @IsNumber({ maxDecimalPlaces: 2 }, { message: 'Unit price must be a number' })
   @IsOptional()
   @ApiProperty({
-    default: 'Updated Unit Price',
+    default: '10.00',
     description: 'Updated Unit Price',
   })
-  unitPrice?: string;
+  unitPrice?: number;
 
   @AutoMap()
-  @Type(() => String)
+  @Type(() => Number)
+  @IsNumber( { maxDecimalPlaces: 2 }, { message: 'Commission must be a number' })
   @IsOptional()
   @ApiProperty({
-    default: 'Updated Commission',
+    default: '10.56',
     description: 'Updated Commission',
   })
-  commission?: string;
+  commission?: number;
 
   @AutoMap()
-  @Type(() => String)
+  @Type(() => Number)
   @IsOptional()
+  @IsNumber( { maxDecimalPlaces: 2 }, { message: 'Commission must be a number' })
   @ApiProperty({
-    example: '$100',
+    example: '1000.99',
     description: 'Updated Total Value',
   })
-  totalValue?: string;
+  totalValue?: number;
 
   @AutoMap()
   @Type(() => String)
@@ -120,4 +114,13 @@ export class UpdateStockRequest {
     description: 'Updated Notes',
   })
   notes?: string;
+
+  @AutoMap()
+  @Type(() => String)
+  @IsOptional()
+  @ApiProperty({
+    default: '69e9a809-249d-4811-aacd-b27d6fec5045',
+    description: 'Id of the vendor',
+  })
+  vendor?: string;
 }
