@@ -84,6 +84,6 @@ export class VendorManagementEntity extends EntityBase {
   })
   updatedBy?: string;
 
-  @OneToMany(() => StockManagementEntity, (stock) => stock.vendorId)
+  @OneToMany(() => StockManagementEntity, (stock) => stock.vendor)
   stocks: StockManagementEntity[];
 }

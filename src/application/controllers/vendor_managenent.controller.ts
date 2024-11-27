@@ -3,15 +3,10 @@ import {
   Post,
   Body,
   Inject,
-  UseGuards,
-  SetMetadata,
   Req,
   Get,
-  Query,
   Param,
   Delete,
-  NotFoundException,
-  Put,
   Patch,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -98,6 +93,6 @@ export class VendorManagementController {
     @Body() request: UpdateVendorRequest,
     @Req() req: Request,
   ) {
-    return this.vendorService.updateVendor(vendorId,request);
+    return this.vendorService.updateVendor(vendorId, request);
   }
 }

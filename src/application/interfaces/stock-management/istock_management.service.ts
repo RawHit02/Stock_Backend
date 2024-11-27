@@ -1,7 +1,5 @@
-import { PageDto, PageOptionsDto } from 'src/models/base/dtos';
-import { VendorResponse } from 'src/models/base/vendor_response';
+import { PageDto } from 'src/models/base/dtos';
 import { ResultResponse } from 'src/models/base/result_response';
-import { VendorListResponse } from 'src/models/vendor-management/vendor_list.response';
 import { GetAllStockRequest } from 'src/models/stock-management/get_all_stock.request';
 import { StockListResponse } from 'src/models/stock-management/stock_list.response';
 import { UpdateStockRequest } from 'src/models/stock-management/update_stock.request';
@@ -16,7 +14,10 @@ export interface IStockManagementService {
   ): Promise<ResultResponse<PageDto<StockListResponse>>>;
   deleteStock(stockId: string, deletedBy?: string): Promise<string>;
   getStockById(stockId: string): Promise<StockManagementEntity>;
-  updateStock(request: UpdateStockRequest): Promise<StockResponse>;
+  updateStock(
+    stockId: string,
+    request: UpdateStockRequest,
+  ): Promise<StockResponse>;
 }
 
 export const IStockManagementService = Symbol('IStockManagementService');

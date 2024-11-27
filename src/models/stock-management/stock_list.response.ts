@@ -1,9 +1,10 @@
 import { AutoMap } from '@automapper/classes';
 import { v4 as uuidv4 } from 'uuid';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsEnum } from 'class-validator';
-import { VendorType } from 'src/infrastructure/helpers/vendor_type_helper';
+import { IsEnum } from 'class-validator';
 import { StockType } from 'src/infrastructure/helpers/stock_type_helper';
+import { VendorManagementEntity } from 'src/infrastructure/data-access/entities';
+import { VendorResponse } from '../base/vendor_response';
 
 export class StockListResponse {
   @AutoMap()
@@ -25,19 +26,19 @@ export class StockListResponse {
 
   @AutoMap()
   @ApiProperty()
-  quantity: string;
+  quantity: number;
 
   @AutoMap()
   @ApiProperty()
-  unitPrice: string;
+  unitPrice: number;
 
   @AutoMap()
   @ApiProperty()
-  commission: string;
+  commission: number;
 
   @AutoMap()
   @ApiProperty()
-  totalValue: string;
+  totalValue: number;
 
   @AutoMap()
   @ApiProperty()
@@ -54,6 +55,10 @@ export class StockListResponse {
   @AutoMap()
   @ApiProperty()
   notes?: string;
+
+  @AutoMap()
+  @ApiProperty({ type: () => VendorResponse })
+  vendor: VendorResponse; // Add vendor details here
 
   @AutoMap()
   @ApiProperty({ default: '' })
