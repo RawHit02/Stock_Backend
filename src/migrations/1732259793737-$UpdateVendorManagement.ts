@@ -17,7 +17,7 @@ export class  $UpdateVendorManagement1732259793737 implements MigrationInterface
         await queryRunner.query(`ALTER TABLE "StockManagementTbl" DROP CONSTRAINT "FK_114097e40e7016197dd2f07e230"`);
         await queryRunner.query(`DROP INDEX "public"."IDX_87de9ee8c98d9e551e32d13ee6"`);
         await queryRunner.query(`DROP TABLE "StockManagementTbl"`);
-        await queryRunner.query(`DROP TYPE "public"."StockManagementTbl_stocktype_enum"`);
+    await queryRunner.query(`DROP TYPE "public"."StockManagementTbl_stocktype_enum"`);
         await queryRunner.query(`DROP INDEX "public"."IDX_9cd75fc06b792f19317ec16ee4"`);
         await queryRunner.query(`DROP TABLE "VendorManagementTbl"`);
         await queryRunner.query(`DROP TYPE "public"."VendorManagementTbl_vendortype_enum"`);
