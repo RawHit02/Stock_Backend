@@ -5,7 +5,7 @@ import { StockManagementEntity } from './stock-management/stock_management.entit
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([VendorManagementEntity, StockManagementEntity]),
+    TypeOrmModule.forFeature([VendorManagementEntity, StockManagementEntity,EmployeeManagementEntity]),
   ],
   exports: [TypeOrmModule],
 })

@@ -4,7 +4,7 @@ import { VendorManagementController } from './controllers/vendor_managenent.cont
 import { StockManagementController } from './controllers/stock_management.controller';
 @Module({
   imports: [InfrastructureModule],
-  controllers: [VendorManagementController, StockManagementController],
+  controllers: [VendorManagementController, StockManagementController,EmployeeManagementController],
   providers: [],
   exports: [],
 })

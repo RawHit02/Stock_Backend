@@ -26,6 +26,12 @@ import { StockManagementRepository } from './repository/stock_management.reposit
       useClass: StockManagementRepository,
     },
     { provide: IStockManagementService, useClass: StockManagementService },
+
+    {
+      provide: IEmployeeManagementRepository,
+      useClass: EmployeeManagementRepository,
+    },
+    { provide: ISEmployeenagementService, useClass: EmployeeManagementService },
     VendorManagementService,
     StockManagementService,
   ],
