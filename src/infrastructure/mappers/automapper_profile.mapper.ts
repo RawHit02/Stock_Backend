@@ -14,7 +14,7 @@ import { CreateStockRequest } from 'src/models/stock-management/create_stock.req
 import { EmployeeManagementEntity } from '../data-access/entities/employee-management/employee_management.entity';
 import { CreateEmployeeRequest } from 'src/models/employee-management/create_employee.request';
 import { EmployeeListResponse } from 'src/models/employee-management/employee_list.response';
-import { EmployeeResponse } from 'src/models/base/interfaces/employee_response';
+import { EmployeeResponse } from 'src/models/base/employee_response';
 import { UpdateEmployeeRequest } from 'src/models/employee-management/update_employee.request';
 
 @Injectable()
