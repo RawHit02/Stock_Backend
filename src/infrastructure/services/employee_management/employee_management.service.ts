@@ -19,7 +19,6 @@ import { IEmployeeManagementRepository } from 'src/application/interfaces/employ
 import { CreateEmployeeRequest } from 'src/models/employee-management/create_employee.request';
 import { EmployeeListResponse } from 'src/models/employee-management/employee_list.response';
 import { UpdateEmployeeRequest } from 'src/models/employee-management/update_employee.request';
-import { VendorResponse } from 'src/models/base/vendor_response';
 import { EmployeeResponse } from 'src/models/base/interfaces/employee_response';
 
 @Injectable()
