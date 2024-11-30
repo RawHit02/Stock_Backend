@@ -1,10 +1,10 @@
 import { Column, Entity } from 'typeorm';
 import { EntityBase } from '../base/entity-base.entity'; // Import the base entity
 import { AutoMap } from '@automapper/classes';
-import { EmployeeType } from 'src/infrastructure/helpers/employee_type_helper';
+import { EmployeeShift } from 'src/infrastructure/helpers/employee_shift_helper';
 
 @Entity({ name: 'EmployeeTbl' })
-export class EmployeeEntity extends EntityBase {
+export class EmployeeManagementEntity extends EntityBase {
   @AutoMap()
   @Column({
     name: 'Name',
@@ -46,8 +46,8 @@ export class EmployeeEntity extends EntityBase {
   @Column({
     name: 'Shift',
     type: 'enum',
-    enum: EmployeeType,
-    default: EmployeeType.Day,
+    enum: EmployeeShift,
+    default: EmployeeShift.Day,
   })
-  shift: EmployeeType
+  employeeShift: EmployeeShift
 }

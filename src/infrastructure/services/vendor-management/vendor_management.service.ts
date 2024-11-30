@@ -87,8 +87,6 @@ export class VendorManagementService implements IVendorManagementService {
     pageOptionsDto: GetAllVendorRequest,
   ): Promise<ResultResponse<PageDto<VendorListResponse>>> {
     try {
-      //console.log("First"+pageOptionsDto);
-      // console.log("Second"+pageOptionsDto.vendorType);
       const [vendors, count] = await this.repository.findAndCount({
         where: {
           isDeleted: false,
@@ -117,7 +115,6 @@ export class VendorManagementService implements IVendorManagementService {
       throw ExceptionHelper.BadRequest(error.message);
     }
   }
-  // New deleteVendor method
   public async deleteVendor(
     vendorId: string,
     deletedBy?: string,

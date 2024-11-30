@@ -8,19 +8,10 @@ import {
   Length,
   Matches,
 } from 'class-validator';
-import { EmployeeType } from 'src/infrastructure/helpers/employee_type_helper'; // Import your EmployeeType enum
+import { EmployeeShift } from 'src/infrastructure/helpers/employee_shift_helper';
 
 export class CreateEmployeeRequest {
-  @AutoMap()
-  @ApiProperty({
-    enum: EmployeeType,
-    description: 'Specify if the employee works Day or Night shifts',
-  })
-  @IsEnum(EmployeeType, {
-    message: 'shift must be either Day or Night',
-  })
-  shift: EmployeeType;
-
+ 
   @AutoMap()
   @Type(() => String)
   @IsNotEmpty({ message: 'Name is required' })
@@ -41,7 +32,7 @@ export class CreateEmployeeRequest {
       'Contact number must be in international format, e.g., +91 1234567890',
   })
   @Length(10, 20, { message: 'Contact number must be between 10 and 20 characters' })
-  contactNumber: string;
+  phoneNumber: string;
 
   @AutoMap()
   @Type(() => String)
@@ -60,4 +51,15 @@ export class CreateEmployeeRequest {
     description: 'Enter a valid address',
   })
   address: string;
+
+  @AutoMap()
+  @ApiProperty({
+    enum: EmployeeShift ,
+    description: 'Specify if the employee works day or night',
+  })
+  @IsEnum(EmployeeShift, {
+    message: 'Shift must be either Day or Night',
+  })
+  employeeShift: EmployeeShift;
+
 }

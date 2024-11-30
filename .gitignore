@@ -63,3 +63,6 @@ package-lock.json
 
 #docker file
 *.yml
+
+# Ignore TypeORM migration files
+src/migrations/
