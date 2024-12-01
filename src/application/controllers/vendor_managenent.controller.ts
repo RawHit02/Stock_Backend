@@ -3,15 +3,10 @@ import {
   Post,
   Body,
   Inject,
-  UseGuards,
-  SetMetadata,
   Req,
   Get,
-  Query,
   Param,
   Delete,
-  NotFoundException,
-  Put,
   Patch,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -24,7 +19,7 @@ import { DeleteVendorRequest } from 'src/models/vendor-management/delete_vendor.
 import { UpdateVendorRequest } from 'src/models/vendor-management/update_vendor.request';
 
 @Controller('vendorManagement')
-@ApiTags('vendorManagement')
+@ApiTags('VendorManagement')
 export class VendorManagementController {
   constructor(
     @Inject(IVendorManagementService)
@@ -98,6 +93,6 @@ export class VendorManagementController {
     @Body() request: UpdateVendorRequest,
     @Req() req: Request,
   ) {
-    return this.vendorService.updateVendor(vendorId,request);
+    return this.vendorService.updateVendor(vendorId, request);
   }
 }

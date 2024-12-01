@@ -1,9 +1,7 @@
 import { Mapper } from '@automapper/core';
-import { v4 as uuidv4 } from 'uuid';
 import { InjectMapper } from '@automapper/nestjs';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import {
-  forwardRef,
   Inject,
   Injectable,
   InternalServerErrorException,
@@ -31,12 +29,37 @@ export class VendorManagementService implements IVendorManagementService {
     private readonly repository: IVendorManagementRepository,
     @InjectMapper() private mapper: Mapper,
     @InjectEntityManager() private _entityManager: EntityManager,
-    @Inject()//(forwardRef(() => StockManagementService))
+    @Inject() //(forwardRef(() => StockManagementService))
     private readonly stockService: StockManagementService,
   ) {}
 
   public async createVendor(request: CreateVendorRequest): Promise<string> {
     try {
+      // Check if a vendor with the given email already exists
+      const existingVendor = await this.repository.findOne({
+        where: { email: request.email },
+      });
+  
+      if (existingVendor) {
+        if (!existingVendor.isDeleted) {
+          // If the vendor exists and is not deleted, throw an error
+          throw ExceptionHelper.BadRequest(
+            'Email already exists, please use a different one.',
+          );
+        } else {
+          // If the vendor exists and is deleted, allow creation by reactivating the vendor
+          Object.assign(existingVendor, {
+            ...request,
+            isDeleted: false, // Reactivate the vendor
+            updatedBy: 'admin',
+            updatedDate: new Date(),
+          });
+          await this.repository.save(existingVendor);
+          return existingVendor.id;
+        }
+      }
+  
+      // If no existing vendor is found, create a new one
       const entity = this.mapper.map(
         request,
         CreateVendorRequest,
@@ -48,7 +71,7 @@ export class VendorManagementService implements IVendorManagementService {
       return entity.id;
     } catch (error) {
       if (error.code === '23505' && error.detail.includes('Email')) {
-        // '23505' is the PostgreSQL error code for unique violations
+         // '23505' is the PostgreSQL error code for unique violations
         throw ExceptionHelper.BadRequest(
           'Email already exists, please use a different one.',
         );
@@ -58,13 +81,12 @@ export class VendorManagementService implements IVendorManagementService {
       );
     }
   }
+  
 
   public async getVendor(
     pageOptionsDto: GetAllVendorRequest,
   ): Promise<ResultResponse<PageDto<VendorListResponse>>> {
     try {
-      //console.log("First"+pageOptionsDto);
-      // console.log("Second"+pageOptionsDto.vendorType);
       const [vendors, count] = await this.repository.findAndCount({
         where: {
           isDeleted: false,
@@ -93,7 +115,6 @@ export class VendorManagementService implements IVendorManagementService {
       throw ExceptionHelper.BadRequest(error.message);
     }
   }
-  // New deleteVendor method
   public async deleteVendor(
     vendorId: string,
     deletedBy?: string,
@@ -148,14 +169,10 @@ export class VendorManagementService implements IVendorManagementService {
     vendorId: string,
     request: UpdateVendorRequest,
   ): Promise<VendorResponse> {
-    console.log(request);
-    console.log(vendorId);
-
     try {
       const vendor = await this.repository.findOne({
         where: { id: vendorId, isDeleted: false },
       });
-
 
       if (!vendor) {
         throw ExceptionHelper.NotFound(
@@ -181,8 +198,9 @@ export class VendorManagementService implements IVendorManagementService {
       );
     }
   }
-  public async findOneByName(id :string){
+  public async findOneByName(id: string) {
     return await this.repository.findOne({
-      where: { id: id, isDeleted: false },});
-  } 
+      where: { id: id, isDeleted: false },
+    });
+  }
 }

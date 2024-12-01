@@ -1,5 +1,5 @@
 import { VendorManagementEntity } from 'src/infrastructure/data-access/entities';
-import { PageDto, PageOptionsDto } from 'src/models/base/dtos';
+import { PageDto } from 'src/models/base/dtos';
 import { VendorResponse } from 'src/models/base/vendor_response';
 import { ResultResponse } from 'src/models/base/result_response';
 import { CreateVendorRequest } from 'src/models/vendor-management/create_vendor.request';
@@ -14,7 +14,10 @@ export interface IVendorManagementService {
   ): Promise<ResultResponse<PageDto<VendorListResponse>>>;
   deleteVendor(vendorId: string, deletedBy?: string): Promise<string>;
   getVendorById(vendorId: string): Promise<VendorManagementEntity>;
-  updateVendor(vendorId: string,request: UpdateVendorRequest): Promise<VendorResponse>;
+  updateVendor(
+    vendorId: string,
+    request: UpdateVendorRequest,
+  ): Promise<VendorResponse>;
 }
 
 export const IVendorManagementService = Symbol('IVendorManagementService');

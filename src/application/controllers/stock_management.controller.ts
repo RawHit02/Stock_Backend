@@ -80,13 +80,17 @@ export class StockManagementController {
     return this.stockService.getStockById(stockId);
   }
 
-  @Patch('updateStock')
+  @Patch('updateStock/:stockId')
   @ApiBearerAuth('access-token')
   @ApiOperation({
     summary: 'Update Stock - Admin and SubAdmin',
     description: 'Allows admins to update stock details by ID',
   })
-  async updateStock(@Body() request: UpdateStockRequest, @Req() req: Request) {
-    return this.stockService.updateStock(request);
+  async updateStock(
+    @Param('stockId') stockId: string,
+    @Body() request: UpdateStockRequest,
+    @Req() req: Request,
+  ) {
+    return this.stockService.updateStock(stockId, request);
   }
 }

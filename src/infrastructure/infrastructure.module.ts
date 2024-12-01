@@ -10,6 +10,10 @@ import { IStockManagementRepository } from 'src/application/interfaces/stock-man
 import { IStockManagementService } from 'src/application/interfaces/stock-management/istock_management.service';
 import { StockManagementService } from './services/stock-management/stock_management.service';
 import { StockManagementRepository } from './repository/stock_management.repository';
+import { IEmployeeManagementRepository } from 'src/application/interfaces/employee_management/iemployee_management.repository';
+import { EmployeeManagementRepository } from './repository/employee_management.repository';
+import { IEmployeeManagementService } from 'src/application/interfaces/employee_management/iemployee_management.service';
+import { EmployeeManagementService } from './services/employee_management/employee_management.service';
 
 @Module({
   imports: [HttpModule, DbContextModule],
@@ -26,12 +30,21 @@ import { StockManagementRepository } from './repository/stock_management.reposit
       useClass: StockManagementRepository,
     },
     { provide: IStockManagementService, useClass: StockManagementService },
-    VendorManagementService,StockManagementService,
+
+    {
+      provide: IEmployeeManagementRepository,
+      useClass: EmployeeManagementRepository,
+    },
+    { provide: IEmployeeManagementService, useClass: EmployeeManagementService },
+    VendorManagementService,
+    StockManagementService
   ],
   exports: [
     JWTService,
     { provide: IVendorManagementService, useClass: VendorManagementService },
     { provide: IStockManagementService, useClass: StockManagementService },
+    { provide: IEmployeeManagementService, useClass: EmployeeManagementService },
+
   ],
 })
 export class InfrastructureModule {}
