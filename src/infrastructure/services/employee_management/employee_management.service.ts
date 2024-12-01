@@ -2,8 +2,6 @@ import { Mapper } from '@automapper/core';
 import { InjectMapper } from '@automapper/nestjs';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import {
-  forwardRef,
-  Inject,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
