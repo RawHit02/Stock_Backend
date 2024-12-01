@@ -65,4 +65,4 @@ package-lock.json
 *.yml
 
 # Ignore TypeORM migration files
-src/migrations/
+# src/migrations/
