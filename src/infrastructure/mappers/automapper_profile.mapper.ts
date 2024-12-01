@@ -1,11 +1,4 @@
-import {
-  Mapper,
-  MappingProfile,
-  createMap,
-  extend,
-  forMember,
-  mapFrom,
-} from '@automapper/core';
+import { Mapper, createMap, mapFrom } from '@automapper/core';
 import { InjectMapper, AutomapperProfile } from '@automapper/nestjs';
 import { Injectable } from '@nestjs/common';
 import { CreateVendorRequest } from 'src/models/vendor-management/create_vendor.request';
@@ -18,6 +11,11 @@ import { StockResponse } from 'src/models/base/stock_response';
 import { UpdateStockRequest } from 'src/models/stock-management/update_stock.request';
 import { StockManagementEntity } from '../data-access/entities/stock-management/stock_management.entity';
 import { CreateStockRequest } from 'src/models/stock-management/create_stock.request';
+import { EmployeeManagementEntity } from '../data-access/entities/employee-management/employee_management.entity';
+import { CreateEmployeeRequest } from 'src/models/employee-management/create_employee.request';
+import { EmployeeListResponse } from 'src/models/employee-management/employee_list.response';
+import { EmployeeResponse } from 'src/models/base/employee_response';
+import { UpdateEmployeeRequest } from 'src/models/employee-management/update_employee.request';
 
 @Injectable()
 export class AutoMapperProfileMapper extends AutomapperProfile {
@@ -31,10 +29,16 @@ export class AutoMapperProfileMapper extends AutomapperProfile {
       createMap(mapper, VendorManagementEntity, VendorListResponse);
       createMap(mapper, VendorManagementEntity, VendorResponse);
       createMap(mapper, UpdateVendorRequest, VendorManagementEntity);
+      
       createMap(mapper, CreateStockRequest, StockManagementEntity);
       createMap(mapper, StockManagementEntity, StockListResponse);
       createMap(mapper, StockManagementEntity, StockResponse);
       createMap(mapper, UpdateStockRequest, StockManagementEntity);
+
+      createMap(mapper, CreateEmployeeRequest, EmployeeManagementEntity);
+      createMap(mapper, EmployeeManagementEntity, EmployeeListResponse);
+      createMap(mapper, EmployeeManagementEntity, EmployeeResponse);
+      createMap(mapper, UpdateEmployeeRequest, EmployeeManagementEntity);
     };
   }
 }

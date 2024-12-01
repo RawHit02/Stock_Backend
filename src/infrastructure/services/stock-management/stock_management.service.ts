@@ -1,5 +1,4 @@
 import { Mapper } from '@automapper/core';
-import { v4 as uuidv4 } from 'uuid';
 import { InjectMapper } from '@automapper/nestjs';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
 import {
@@ -23,6 +22,8 @@ import { StockResponse } from 'src/models/base/stock_response';
 import { StockManagementEntity } from 'src/infrastructure/data-access/entities/stock-management/stock_management.entity';
 import { CreateStockRequest } from 'src/models/stock-management/create_stock.request';
 import { VendorManagementService } from '../vendor-management/vendor_management.service';
+import { VendorManagementEntity } from 'src/infrastructure/data-access/entities';
+import { VendorResponse } from 'src/models/base/vendor_response';
 
 @Injectable()
 export class StockManagementService implements IStockManagementService {
@@ -42,9 +43,9 @@ export class StockManagementService implements IStockManagementService {
         CreateStockRequest,
         StockManagementEntity,
       );
-      let vendor = await this.vendorService.findOneByName(request.vendorId); //finding vendor from vendorId
+      let vendor = await this.vendorService.findOneByName(request.vendor); //finding vendor from vendorId
       entity.createdBy = 'admin';
-      (entity.vendorId = vendor), await this.repository.save(entity);
+      (entity.vendor = vendor), await this.repository.save(entity);
       return entity.id;
     } catch (error) {
       if (error.code === '23505' && error.detail.includes('transId')) {
@@ -68,7 +69,7 @@ export class StockManagementService implements IStockManagementService {
           isDeleted: false,
           stockType: pageOptionsDto.stockType,
         },
-        relations: ['vendorId'],
+        //relations: ['vendorId'],    no need eager:true in stockManagementEntity
         loadEagerRelations: true,
         skip: pageOptionsDto.skip,
         take: pageOptionsDto.take,
@@ -79,11 +80,21 @@ export class StockManagementService implements IStockManagementService {
         pageOptionsDto: pageOptionsDto,
       });
 
-      let res = this.mapper.mapArray(
-        stocks,
-        StockManagementEntity,
-        StockListResponse,
-      );
+      // let res = this.mapper.mapArray(
+      //   stocks,
+      //   StockManagementEntity,
+      //   StockListResponse,
+      // );
+
+      //manual mapping
+      const res = stocks.map((stock) => ({
+        ...this.mapper.map(stock, StockManagementEntity, StockListResponse),
+        vendor: this.mapper.map(
+          stock.vendor,
+          VendorManagementEntity,
+          VendorResponse,
+        ),
+      }));
 
       const pageDtoRes = new PageDto<StockListResponse>(res, pageMetaDto);
 
@@ -94,27 +105,27 @@ export class StockManagementService implements IStockManagementService {
   }
   // New deleteVendor method
   public async deleteStock(
-    vendorId: string,
+    vendor: string,
     deletedBy?: string,
   ): Promise<string> {
     try {
-      const vendor = await this.repository.findOne({
-        where: { id: vendorId, isDeleted: false },
+      const findVendor = await this.repository.findOne({
+        where: { id: vendor, isDeleted: false },
       });
 
       if (!vendor) {
         throw new NotFoundException(
-          `Vendor with ID ${vendorId} not found or already deleted.`,
+          `Vendor with ID ${vendor} not found or already deleted.`,
         );
       }
 
       // Mark the vendor as deleted and set the deletedBy user
-      vendor.isDeleted = true;
-      vendor.updatedBy = deletedBy || 'system';
+      findVendor.isDeleted = true;
+      findVendor.updatedBy = deletedBy || 'system';
 
-      await this.repository.save(vendor);
+      await this.repository.save(findVendor);
 
-      return vendorId;
+      return vendor;
     } catch (error) {
       throw ExceptionHelper.BadRequest(
         error?.message || 'Something went wrong',
@@ -144,16 +155,31 @@ export class StockManagementService implements IStockManagementService {
   }
 
   public async updateStock(
+    stockId: string,
     request: UpdateStockRequest,
   ): Promise<StockResponse> {
     try {
+      // Check if vendorId is provided in the request
+      if (!request.vendor) {
+        throw ExceptionHelper.BadRequest(`vendorId is required.`);
+      }
+
       const stock = await this.repository.findOne({
-        where: { id: request.stockId, isDeleted: false },
+        where: { id: stockId, isDeleted: false },
       });
 
       if (!stock) {
         throw ExceptionHelper.NotFound(
-          `Stock with ID ${request.stockId} not found or already deleted.`,
+          `Stock with ID ${stockId} not found or already deleted.`,
+        );
+      }
+
+      //Check if the vendorId exists
+      const vendor = await this.vendorService.getVendorById(request.vendor);
+
+      if (!vendor) {
+        throw ExceptionHelper.BadRequest(
+          `Vendor with ID ${request.vendor} does not exist.`,
         );
       }
 
@@ -165,10 +191,17 @@ export class StockManagementService implements IStockManagementService {
 
       stock.updatedBy = 'admin'; // Use actual user details here if needed
       stock.updatedDate = new Date();
-
       await this.repository.save(stock);
 
-      return this.mapper.map(stock, StockManagementEntity, StockResponse);
+      const stockResponse = this.mapper.map(
+        stock,
+        StockManagementEntity,
+        StockResponse,
+      );
+
+      stockResponse.vendor = vendor?.id || null;
+      return stockResponse;
+      //return this.mapper.map(stock, StockManagementEntity, StockResponse);
     } catch (error) {
       throw ExceptionHelper.BadRequest(
         error?.message || 'Something went wrong',
