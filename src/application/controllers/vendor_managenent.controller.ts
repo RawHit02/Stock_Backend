@@ -19,7 +19,7 @@ import { DeleteVendorRequest } from 'src/models/vendor-management/delete_vendor.
 import { UpdateVendorRequest } from 'src/models/vendor-management/update_vendor.request';
 
 @Controller('vendorManagement')
-@ApiTags('vendorManagement')
+@ApiTags('VendorManagement')
 export class VendorManagementController {
   constructor(
     @Inject(IVendorManagementService)

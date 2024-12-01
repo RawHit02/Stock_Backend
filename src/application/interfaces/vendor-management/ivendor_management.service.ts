@@ -1,5 +1,5 @@
 import { VendorManagementEntity } from 'src/infrastructure/data-access/entities';
-import { PageDto, PageOptionsDto } from 'src/models/base/dtos';
+import { PageDto } from 'src/models/base/dtos';
 import { VendorResponse } from 'src/models/base/vendor_response';
 import { ResultResponse } from 'src/models/base/result_response';
 import { CreateVendorRequest } from 'src/models/vendor-management/create_vendor.request';
