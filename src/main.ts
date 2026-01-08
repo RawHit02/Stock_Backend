@@ -15,15 +15,13 @@ async function bootstrap() {
   const appConfig = app.get(ConfigService);
   app.useGlobalPipes(
     new ValidationPipe({
-      transform: true,whitelist: true,
-
+      transform: true,
+      whitelist: true,
       disableErrorMessages: false, // Enables detailed error messages
-    exceptionFactory: (errors) => {
-      console.error(errors); // Log validation errors
-      return new BadRequestException(errors);
-    },
-
-
+      exceptionFactory: (errors) => {
+        console.error(errors); // Log validation errors
+        return new BadRequestException(errors);
+      },
     }),
   );
   app.useGlobalFilters(new HttpExceptionFilter());
@@ -33,8 +31,27 @@ async function bootstrap() {
   );
 
   app.setGlobalPrefix('api/v1');
-  SwaggerModule.setup('api', app, createDocument(app));
-  await app.listen(process?.env?.PORT || 81);
-  console.log(`🚀 Server started at ${await app.getUrl()}`);
+  
+  // Swagger setup
+  const document = createDocument(app);
+  SwaggerModule.setup('api', app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+    customSiteTitle: 'Stock Backend API',
+  });
+
+  const port = process.env.PORT || 81;
+  await app.listen(port);
+  console.log(`🚀 Server started at port ${port}`);
+  
+  return app;
 }
-bootstrap();
+
+// For Vercel deployment: export the app
+export const viteNodeApp = bootstrap();
+
+// Standard bootstrap call for local development
+if (process.env.NODE_ENV !== 'production') {
+  bootstrap();
+}
