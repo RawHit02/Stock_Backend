@@ -9,21 +9,21 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { EntityManager } from 'typeorm';
-import { ResultResponse } from 'src/models/base/result_response';
-import { PageDto, PageMetaDto } from 'src/models/base/dtos';
-import { ExceptionHelper } from 'src/application/helpers/exception.helper';
+import { ResultResponse } from '../../../models/base/result_response';
+import { PageDto, PageMetaDto } from '../../../models/base/dtos';
+import { ExceptionHelper } from '../../../application/helpers/exception.helper';
 import { cleanObject } from '../helpers/mapper_object';
-import { IStockManagementService } from 'src/application/interfaces/stock-management/istock_management.service';
-import { IStockManagementRepository } from 'src/application/interfaces/stock-management/istock_management.repository';
-import { GetAllStockRequest } from 'src/models/stock-management/get_all_stock.request';
-import { StockListResponse } from 'src/models/stock-management/stock_list.response';
-import { UpdateStockRequest } from 'src/models/stock-management/update_stock.request';
-import { StockResponse } from 'src/models/base/stock_response';
-import { StockManagementEntity } from 'src/infrastructure/data-access/entities/stock-management/stock_management.entity';
-import { CreateStockRequest } from 'src/models/stock-management/create_stock.request';
+import { IStockManagementService } from '../../../application/interfaces/stock-management/istock_management.service';
+import { IStockManagementRepository } from '../../../application/interfaces/stock-management/istock_management.repository';
+import { GetAllStockRequest } from '../../../models/stock-management/get_all_stock.request';
+import { StockListResponse } from '../../../models/stock-management/stock_list.response';
+import { UpdateStockRequest } from '../../../models/stock-management/update_stock.request';
+import { StockResponse } from '../../../models/base/stock_response';
+import { StockManagementEntity } from '../../../infrastructure/data-access/entities/stock-management/stock_management.entity';
+import { CreateStockRequest } from '../../../models/stock-management/create_stock.request';
 import { VendorManagementService } from '../vendor-management/vendor_management.service';
-import { VendorManagementEntity } from 'src/infrastructure/data-access/entities';
-import { VendorResponse } from 'src/models/base/vendor_response';
+import { VendorManagementEntity } from '../../../infrastructure/data-access/entities';
+import { VendorResponse } from '../../../models/base/vendor_response';
 
 @Injectable()
 export class StockManagementService implements IStockManagementService {

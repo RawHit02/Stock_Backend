@@ -1,7 +1,7 @@
 import { Column, Entity } from 'typeorm';
 import { EntityBase } from '../base/entity-base.entity'; // Import the base entity
 import { AutoMap } from '@automapper/classes';
-import { EmployeeShift } from 'src/infrastructure/helpers/employee_shift_helper';
+import { EmployeeShift } from '../../../../infrastructure/helpers/employee_shift_helper';
 
 @Entity({ name: 'EmployeeTbl' })
 export class EmployeeManagementEntity extends EntityBase {

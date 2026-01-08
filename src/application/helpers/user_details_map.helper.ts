@@ -1,6 +1,6 @@
 import { UnauthorizedException } from '@nestjs/common';
-import { JWTService } from 'src/infrastructure/services/helpers';
-import { UserDetailsContext } from 'src/models/base/user_details_context.model';
+import { JWTService } from '../../infrastructure/services/helpers';
+import { UserDetailsContext } from '../../models/base/user_details_context.model';
 
 export class UserDetailsHelper {
   static userDetails(req: Request, jwt: JWTService): UserDetailsContext {

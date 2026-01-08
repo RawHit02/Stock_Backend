@@ -2,7 +2,7 @@ import { AutoMap } from '@automapper/classes';
 import { v4 as uuidv4 } from 'uuid';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsEnum } from 'class-validator';
-import { EmployeeShift } from 'src/infrastructure/helpers/employee_shift_helper';
+import { EmployeeShift } from '../../infrastructure/helpers/employee_shift_helper';
 
 export class EmployeeListResponse {
   @AutoMap()

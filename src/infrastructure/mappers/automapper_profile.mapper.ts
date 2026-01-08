@@ -1,21 +1,21 @@
 import { Mapper, createMap, mapFrom } from '@automapper/core';
 import { InjectMapper, AutomapperProfile } from '@automapper/nestjs';
 import { Injectable } from '@nestjs/common';
-import { CreateVendorRequest } from 'src/models/vendor-management/create_vendor.request';
+import { CreateVendorRequest } from '../../models/vendor-management/create_vendor.request';
 import { VendorManagementEntity } from '../data-access/entities';
-import { VendorListResponse } from 'src/models/vendor-management/vendor_list.response';
-import { VendorResponse } from 'src/models/base/vendor_response';
-import { UpdateVendorRequest } from 'src/models/vendor-management/update_vendor.request';
-import { StockListResponse } from 'src/models/stock-management/stock_list.response';
-import { StockResponse } from 'src/models/base/stock_response';
-import { UpdateStockRequest } from 'src/models/stock-management/update_stock.request';
+import { VendorListResponse } from '../../models/vendor-management/vendor_list.response';
+import { VendorResponse } from '../../models/base/vendor_response';
+import { UpdateVendorRequest } from '../../models/vendor-management/update_vendor.request';
+import { StockListResponse } from '../../models/stock-management/stock_list.response';
+import { StockResponse } from '../../models/base/stock_response';
+import { UpdateStockRequest } from '../../models/stock-management/update_stock.request';
 import { StockManagementEntity } from '../data-access/entities/stock-management/stock_management.entity';
-import { CreateStockRequest } from 'src/models/stock-management/create_stock.request';
+import { CreateStockRequest } from '../../models/stock-management/create_stock.request';
 import { EmployeeManagementEntity } from '../data-access/entities/employee-management/employee_management.entity';
-import { CreateEmployeeRequest } from 'src/models/employee-management/create_employee.request';
-import { EmployeeListResponse } from 'src/models/employee-management/employee_list.response';
-import { EmployeeResponse } from 'src/models/base/employee_response';
-import { UpdateEmployeeRequest } from 'src/models/employee-management/update_employee.request';
+import { CreateEmployeeRequest } from '../../models/employee-management/create_employee.request';
+import { EmployeeListResponse } from '../../models/employee-management/employee_list.response';
+import { EmployeeResponse } from '../../models/base/employee_response';
+import { UpdateEmployeeRequest } from '../../models/employee-management/update_employee.request';
 
 @Injectable()
 export class AutoMapperProfileMapper extends AutomapperProfile {

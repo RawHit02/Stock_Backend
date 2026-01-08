@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ModuleRef } from '@nestjs/core';
 import { JwtService, TokenExpiredError } from '@nestjs/jwt';
-import { EnvKeyConstants } from 'src/shared-lib';
+import { EnvKeyConstants } from 'shared-lib';
 @Injectable()
 export class JWTService {
   constructor(private jwtService: JwtService) {}

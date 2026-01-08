@@ -1,4 +1,4 @@
-import { IAsyncRepository } from 'src/application/interfaces/base/iasync-repository';
+import { IAsyncRepository } from '../../application/interfaces/base/iasync-repository';
 import { Repository } from 'typeorm';
 
 export abstract class RepositoryBase<TEntity>

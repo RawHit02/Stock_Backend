@@ -11,12 +11,12 @@ import {
     Query,
   } from '@nestjs/common';
   import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-  import { JWTService } from 'src/infrastructure/services/helpers';
+  import { JWTService } from '../../infrastructure/services/helpers';
 import { IEmployeeManagementService } from '../interfaces/employee_management/iemployee_management.service';
-import { CreateEmployeeRequest } from 'src/models/employee-management/create_employee.request';
-import { PageOptionsDto } from 'src/models/base/dtos';
-import { DeleteEmployeeRequest } from 'src/models/employee-management/delete_employee.request';
-import { UpdateEmployeeRequest } from 'src/models/employee-management/update_employee.request';
+import { CreateEmployeeRequest } from '../../models/employee-management/create_employee.request';
+import { PageOptionsDto } from '../../models/base/dtos';
+import { DeleteEmployeeRequest } from '../../models/employee-management/delete_employee.request';
+import { UpdateEmployeeRequest } from '../../models/employee-management/update_employee.request';
   
   @Controller('employeeManagement')
   @ApiTags('EmployeeManagement')

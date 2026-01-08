@@ -10,13 +10,13 @@ import {
   Patch,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { JWTService } from 'src/infrastructure/services/helpers';
+import { JWTService } from '../../infrastructure/services/helpers';
 import { UserDetailsHelper } from '../helpers/user_details_map.helper';
-import { GetAllVendorRequest } from 'src/models/vendor-management/get_all_vendor_request';
+import { GetAllVendorRequest } from '../../models/vendor-management/get_all_vendor_request';
 import { IVendorManagementService } from '../interfaces/vendor-management/ivendor_management.service';
-import { CreateVendorRequest } from 'src/models/vendor-management/create_vendor.request';
-import { DeleteVendorRequest } from 'src/models/vendor-management/delete_vendor.request';
-import { UpdateVendorRequest } from 'src/models/vendor-management/update_vendor.request';
+import { CreateVendorRequest } from '../../models/vendor-management/create_vendor.request';
+import { DeleteVendorRequest } from '../../models/vendor-management/delete_vendor.request';
+import { UpdateVendorRequest } from '../../models/vendor-management/update_vendor.request';
 
 @Controller('vendorManagement')
 @ApiTags('VendorManagement')

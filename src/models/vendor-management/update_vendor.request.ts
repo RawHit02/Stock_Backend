@@ -9,7 +9,7 @@ import {
   IsEnum,
   IsNotEmpty,
 } from 'class-validator';
-import { VendorType } from 'src/infrastructure/helpers/vendor_type_helper';
+import { VendorType } from '../../infrastructure/helpers/vendor_type_helper';
 
 export class UpdateVendorRequest {
   @AutoMap()

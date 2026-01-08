@@ -7,7 +7,7 @@ import {
   IsOptional,
 } from 'class-validator';
 import { PageOptionsDto } from '../base/dtos';
-import { EmployeeShift } from 'src/infrastructure/helpers/employee_shift_helper';
+import { EmployeeShift } from '../../infrastructure/helpers/employee_shift_helper';
 
 export class GetAllEmployeeRequest extends PageOptionsDto {
 

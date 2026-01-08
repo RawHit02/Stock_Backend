@@ -1,5 +1,5 @@
 import { createCipheriv, randomBytes, scrypt, createDecipheriv  } from 'crypto';
-import { EnvKeyConstants } from 'src/shared-lib';
+import { EnvKeyConstants } from 'shared-lib';
 import { promisify } from 'util';
 
 export class EncryptionService {

@@ -2,7 +2,7 @@ import { AutoMap } from '@automapper/classes';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsOptional, IsEnum, IsInt, IsNumber } from 'class-validator';
-import { StockType } from 'src/infrastructure/helpers/stock_type_helper';
+import { StockType } from '../../infrastructure/helpers/stock_type_helper';
 
 export class UpdateStockRequest {
   @AutoMap()

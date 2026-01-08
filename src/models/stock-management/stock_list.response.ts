@@ -2,8 +2,8 @@ import { AutoMap } from '@automapper/classes';
 import { v4 as uuidv4 } from 'uuid';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum } from 'class-validator';
-import { StockType } from 'src/infrastructure/helpers/stock_type_helper';
-import { VendorManagementEntity } from 'src/infrastructure/data-access/entities';
+import { StockType } from '../../infrastructure/helpers/stock_type_helper';
+import { VendorManagementEntity } from '../../infrastructure/data-access/entities';
 import { VendorResponse } from '../base/vendor_response';
 
 export class StockListResponse {

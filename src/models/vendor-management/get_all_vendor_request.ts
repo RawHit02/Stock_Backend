@@ -11,7 +11,7 @@ import {
   Min,
 } from 'class-validator';
 import { PageOptionsDto } from '../base/dtos';
-import { VendorType } from 'src/infrastructure/helpers/vendor_type_helper';
+import { VendorType } from '../../infrastructure/helpers/vendor_type_helper';
 
 export class GetAllVendorRequest extends PageOptionsDto {
   @ApiPropertyOptional()

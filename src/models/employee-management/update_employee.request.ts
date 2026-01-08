@@ -6,7 +6,7 @@ import {
   Matches,
   IsEmail,
 } from 'class-validator';
-import { EmployeeShift } from 'src/infrastructure/helpers/employee_shift_helper';
+import { EmployeeShift } from '../../infrastructure/helpers/employee_shift_helper';
 
 export class UpdateEmployeeRequest {
   @AutoMap()

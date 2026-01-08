@@ -1,7 +1,7 @@
 import { AutoMap } from '@automapper/classes';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum } from 'class-validator';
-import { EmployeeShift } from 'src/infrastructure/helpers/employee_shift_helper';
+import { EmployeeShift } from '../../infrastructure/helpers/employee_shift_helper';
 
 export class EmployeeResponse {
   @AutoMap()

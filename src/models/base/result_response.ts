@@ -1,4 +1,4 @@
-import { ExceptionHelper } from 'src/application/helpers/exception.helper';
+import { ExceptionHelper } from '../../application/helpers/exception.helper';
 
 export class ResultResponse<T> {
   private readonly value: T;

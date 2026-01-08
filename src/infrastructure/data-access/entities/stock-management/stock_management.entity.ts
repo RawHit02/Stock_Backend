@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { EntityBase } from '../base/entity-base.entity'; // Import the base entity
 import { AutoMap } from '@automapper/classes';
-import { StockType } from 'src/infrastructure/helpers/stock_type_helper';
+import { StockType } from '../../../../infrastructure/helpers/stock_type_helper';
 import { VendorManagementEntity } from '../vendor-management/vendor_management.entity';
 
 @Entity({ name: 'StockManagementTbl' })

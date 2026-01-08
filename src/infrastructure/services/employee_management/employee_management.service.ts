@@ -7,17 +7,17 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { EntityManager } from 'typeorm';
-import { ResultResponse } from 'src/models/base/result_response';
-import { PageDto, PageMetaDto, PageOptionsDto } from 'src/models/base/dtos';
-import { ExceptionHelper } from 'src/application/helpers/exception.helper';
+import { ResultResponse } from '../../../models/base/result_response';
+import { PageDto, PageMetaDto, PageOptionsDto } from '../../../models/base/dtos';
+import { ExceptionHelper } from '../../../application/helpers/exception.helper';
 import { cleanObject } from '../helpers/mapper_object';
-import { IEmployeeManagementService } from 'src/application/interfaces/employee_management/iemployee_management.service';
-import { EmployeeManagementEntity } from 'src/infrastructure/data-access/entities/employee-management/employee_management.entity';
-import { IEmployeeManagementRepository } from 'src/application/interfaces/employee_management/iemployee_management.repository';
-import { CreateEmployeeRequest } from 'src/models/employee-management/create_employee.request';
-import { EmployeeListResponse } from 'src/models/employee-management/employee_list.response';
-import { UpdateEmployeeRequest } from 'src/models/employee-management/update_employee.request';
-import { EmployeeResponse } from 'src/models/base/employee_response';
+import { IEmployeeManagementService } from '../../../application/interfaces/employee_management/iemployee_management.service';
+import { EmployeeManagementEntity } from '../../../infrastructure/data-access/entities/employee-management/employee_management.entity';
+import { IEmployeeManagementRepository } from '../../../application/interfaces/employee_management/iemployee_management.repository';
+import { CreateEmployeeRequest } from '../../../models/employee-management/create_employee.request';
+import { EmployeeListResponse } from '../../../models/employee-management/employee_list.response';
+import { UpdateEmployeeRequest } from '../../../models/employee-management/update_employee.request';
+import { EmployeeResponse } from '../../../models/base/employee_response';
 
 @Injectable()
 export class EmployeeManagementService implements IEmployeeManagementService {

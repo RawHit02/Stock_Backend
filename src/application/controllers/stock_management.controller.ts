@@ -15,12 +15,12 @@ import {
   Patch,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { JWTService } from 'src/infrastructure/services/helpers';
+import { JWTService } from '../../infrastructure/services/helpers';
 import { IStockManagementService } from '../interfaces/stock-management/istock_management.service';
-import { CreateStockRequest } from 'src/models/stock-management/create_stock.request';
-import { GetAllStockRequest } from 'src/models/stock-management/get_all_stock.request';
-import { DeleteStockRequest } from 'src/models/stock-management/delete_stock.request';
-import { UpdateStockRequest } from 'src/models/stock-management/update_stock.request';
+import { CreateStockRequest } from '../../models/stock-management/create_stock.request';
+import { GetAllStockRequest } from '../../models/stock-management/get_all_stock.request';
+import { DeleteStockRequest } from '../../models/stock-management/delete_stock.request';
+import { UpdateStockRequest } from '../../models/stock-management/update_stock.request';
 
 @Controller('stockManagement')
 @ApiTags('StockManagement')
