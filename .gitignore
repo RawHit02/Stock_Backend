@@ -53,7 +53,7 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 .vs
 .vscode
 .vscode/settings.json
-package-lock.json
+# package-lock.json (Removed to allow Vercel to use it)
 
 #API test httpyac files
 *.http 
