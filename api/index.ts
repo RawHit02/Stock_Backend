@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '../src/app.module';
 import { SwaggerModule } from '@nestjs/swagger';
@@ -11,7 +12,21 @@ let cachedApp;
 
 async function bootstrap() {
   if (!cachedApp) {
+    console.log('Validating Environment Variables...');
+    const requiredEnv = [
+      'DATABASE_HOST',
+      'DATABASE_USERNAME',
+      'DATABASE_PASSWORD',
+      'DATABASE_NAME',
+    ];
+    const missing = requiredEnv.filter((k) => !process.env[k]);
+    if (missing.length > 0) {
+      throw new Error(`Missing required environment variables: ${missing.join(', ')}`);
+    }
+
+    console.log('Starting NestJS bootstrap...');
     const app = await NestFactory.create(AppModule, { cors: true });
+    console.log('App created, setting up middleware...');
     
     app.useGlobalPipes(
       new ValidationPipe({
@@ -29,6 +44,7 @@ async function bootstrap() {
 
     app.setGlobalPrefix('api/v1');
 
+    console.log('Setting up Swagger...');
     const document = createDocument(app);
     SwaggerModule.setup('api', app, document, {
       swaggerOptions: {
@@ -37,7 +53,9 @@ async function bootstrap() {
       customSiteTitle: 'Stock Backend API',
     });
 
+    console.log('Initializing app...');
     await app.init();
+    console.log('App initialized successfully.');
     cachedApp = app.getHttpAdapter().getInstance();
   }
   return cachedApp;
