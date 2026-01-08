@@ -11,24 +11,18 @@ export class TypeOrmPostgresConnectionService implements TypeOrmOptionsFactory {
   createTypeOrmOptions(
     connectionName?: string | undefined,
   ): TypeOrmModuleOptions | Promise<TypeOrmModuleOptions> {
+    const isProduction = process.env.NODE_ENV === 'production';
     return {
       type: 'postgres',
       host: this.configService.get<string>('DATABASE_HOST'),
-      port: parseInt(this.configService.get<string>('DATABASE_PORT') || '5433'),
+      port: parseInt(this.configService.get<string>('DATABASE_PORT') || '5432'),
       username: this.configService.get<string>('DATABASE_USERNAME'),
       password: this.configService.get<string>('DATABASE_PASSWORD'),
       database: this.configService.get<string>('DATABASE_NAME'),
-      // entities: [
-      //     __dirname + '/../**/*.entity{.ts,.js}',
-      // ],
-      entities: ['dist/**/**/*.entity{.ts,.js}'],
-
-      migrations: ['dist/migrations/*{.ts,.js}'],
-      migrationsTableName: 'stock_migrations',
-      autoLoadEntities: false,
+      autoLoadEntities: true,
       synchronize: false,
-      logging: true,
-      logger: 'file',
+      logging: !isProduction,
+      ssl: isProduction ? { rejectUnauthorized: false } : false,
     };
   }
 }

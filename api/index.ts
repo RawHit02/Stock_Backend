@@ -44,6 +44,11 @@ async function bootstrap() {
 }
 
 export default async (req, res) => {
-  const app = await bootstrap();
-  app(req, res);
+  try {
+    const app = await bootstrap();
+    app(req, res);
+  } catch (err) {
+    console.error('Error during bootstrap:', err);
+    res.status(500).send('Internal Server Error: ' + err.message);
+  }
 };
